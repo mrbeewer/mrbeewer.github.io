@@ -1,9 +1,7 @@
 
 # David Beeler :bowtie:
 
-## Super Awesome Dude
-
-#### About Me
+###### About Me
 
 * **Education:** BS / MS in Materials Science and Engineering
 * **Experience:** Laser-Material Interaction, Robotic Communication (VB), Matlab Programming
