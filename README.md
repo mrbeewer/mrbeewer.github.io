@@ -5,9 +5,10 @@
 
 * **Education:** BS / MS in Materials Science and Engineering
 * **Experience:** Laser-Material Interaction, Robotic Communication (VB), Matlab Programming
-* **Pets:** Loki (cat, 8), Thor (cat, 1)
+* **Pets:** Loki (cat, 8), Thor (cat, 1)  
 
-____
+<br />
+<br />
 
 ###### :musical_note: Some of My Favorite Things :musical_note: 
 *(in no particular order)*
