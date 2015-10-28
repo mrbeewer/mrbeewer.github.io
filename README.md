@@ -7,7 +7,7 @@
 * **Experience:** Laser-Material Interaction, Robotic Communication (VB), Matlab Programming
 * **Pets:** Loki (cat, 8), Thor (cat, 1)
 
-###### Some of My Favorite Things *(in no particular order)*
+###### :musical_note: Some of My Favorite Things :musical_note: *(in no particular order)*
 
 1. Star Wars
 2. Lord of the Rings
