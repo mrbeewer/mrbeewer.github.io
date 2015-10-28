@@ -7,6 +7,8 @@
 * **Experience:** Laser-Material Interaction, Robotic Communication (VB), Matlab Programming
 * **Pets:** Loki (cat, 8), Thor (cat, 1)
 
+
+
 ###### :musical_note: Some of My Favorite Things :musical_note: 
 *(in no particular order)*
 
@@ -16,6 +18,8 @@
 4. Music
 5. Cats
 
+
+###### Testing of Table Creation
 Skills | Abilities
 ------------ | -------------
 Problem Solving | Can play... the French horn
@@ -23,7 +27,7 @@ Mathematics | Can play... the trombone
 Visual Basic | Knitting
 MATLAB | Wood/Metal Working
 
-
+###### Testing of Code Blocks
 ```HTML
     <div class="nav">
       <button class="entertainment_show">Entertainment</button>
