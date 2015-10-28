@@ -7,149 +7,6 @@
   <title>David A. Beeler</title>
 
   <style>
-/*
-    header {
-      margin: 0 auto;
-      max-width: 300px;
-      text-align: center;
-    }
-    h1 {
-      background: white;
-      background: linear-gradient(bottom, rgba(255,255,255,1), rgba(255,255,255,.6));
-      background: -webkit-linear-gradient(bottom, rgba(200,200,200,1), rgba(255,255,255,.1));
-      background: -moz-linear-gradient(bottom, rgba(255,255,255,1), rgba(0,0,0,.6));
-      border: 7px solid rgba(100,100,100,1);
-      border-radius: 100px 0px 150px 0px;
-      font-family: 'Berkshire Swash', cursive;
-      height: 350px;
-      padding: 25px;
-      position: relative;
-      text-align: center;
-    }
-    h2 {
-      font-family: 'Berkshire Swash', cursive;
-      font-size: 40px;
-      text-align: center;
-    }
-    img {
-      border: 7px solid rgba(100,100,100,1);
-      border-radius: 50px 0px 100px 0px;
-      margin: 0 0 0 0;
-      position: relative;
-      top: -350px;
-      width: 200px;
-    }
-    body {
-      background: #495469;
-      background: url("https://farm4.staticflickr.com/3226/2312068567_fbb94f60cf_o_d.jpg");
-      background-size: cover;
-      background-position: center;
-      margin: 0 auto;
-      max-width: 1200px;
-    }
-    div {
-      background-size: cover;
-      border-radius: 30px;
-      height: 500px;
-      margin: 40px 100px 0 100px;
-      position: relative;
-    }
-    p {
-      background: black;
-      background: linear-gradient(bottom, rgba(0,0,0,1), rgba(0,0,0,.3));
-      background: -webkit-linear-gradient(bottom, rgba(0,0,0,1), rgba(0,0,0,.3));
-      background: -moz-linear-gradient(bottom, rgba(0,0,0,1), rgba(0,0,0,.3));
-      color: rgba(255,255,255,1);
-      font-size: 90px
-      line-height: 28px;
-      padding: 10px;
-      text-align: justify;
-    }
-    small {
-      font-size:20px;
-      line-height: 35px;
-    }
-    button {
-      background: rgba(100,100,100,1)
-      border: 0;
-      font-size: 20px;
-      margin: 0 6px 0 6px ;
-      padding: 20px;
-      text-align: center;
-    }
-    button:hover {
-      background: rgba(200,200,200,1);
-      border: 0;
-      box-shadow: 0px 0px 40px rgba(100,60,160,.6);
-    }
-
-    .content {
-      position: relative;
-      top: -300px;
-    }
-    .nav {
-      border: 0;
-      font-size: 20px;
-      padding: 20px;
-      position: relative;
-      top: -40px;
-      text-align: center;
-    }
-
-    .entertainment {
-      background-image: url("http://www.walldevil.com/wallpapers/w01/518486-caliburn-crossovers-doctor-who-funny-harry-potter-lightsabers-minimalistic-star-wars-wand.jpg");
-      background-size: cover;
-      background-position: center;
-      font-size: 40px;
-      position: relative;
-      top: -500px;
-      z-index: 0;
-    }
-    .entertainment-p {
-      bottom: 0;
-      height: 150px;
-      margin: 0;
-      padding: 10px;
-      position: absolute;
-      z-index: 0
-    }
-
-    .personalSum {
-      background-image: url("http://i.imgur.com/dqUNJQw.jpg?1");
-      background-size: cover;
-      background-position: center;
-      font-size: 40px;
-      position: relative;
-      top: -1040px;
-      z-index: 1;
-    }
-    .personalSum-p {
-      bottom: 0;
-      height: 225px;
-      margin: 0;
-      position: absolute;
-      z-index: 1
-    }
-
-    .contactInfo {
-      background-image: url("http://i.imgur.com/X9Th4zT.jpg");
-      background-size: cover;
-      background-position: center;
-      font-size: 40px;
-      position: relative;
-      top: -1580px;
-      z-index: -1;
-    }
-    .contactInfo-p {
-      bottom: 0;
-      margin: 0;
-      padding: 0;
-      position: absolute;
-      text-align: center;
-      width: 100%;
-      z-index: -1
-    }
-*/
   </style>
 
 </head>
@@ -197,32 +54,32 @@
   <script>
     // Toggling the Entertainment
     $(".entertainment_show").click(function() {
-      $(".entertainment").css("z-index", 0);
-      $(".entertainment-p").css("z-index", 1);
-      $(".personalSum").css("z-index", -1);
-      $(".personalSum-p").css("z-index", -1);
-      $(".contactInfo").css("z-index", -1);
-      $(".contactInfo-p").css("z-index", -1);
+      $(".entertainment").css("opacity", 1.0);
+      $(".entertainment-p").css("opacity", 1.0);
+      $(".personalSum").css("opacity", 0.0);
+      $(".personalSum-p").css("opacity", 0.0);
+      $(".contactInfo").css("opacity", 0.0);
+      $(".contactInfo-p").css("opacity", 0.0);
     });
 
     // Toggling the Personal Summary
     $(".personalSum_show").click(function() {
-      $(".entertainment").css("z-index", -1);
-      $(".entertainment-p").css("z-index", -1);
-      $(".personalSum").css("z-index", 0);
-      $(".personalSum-p").css("z-index", 1);
-      $(".contactInfo").css("z-index", -1);
-      $(".contactInfo-p").css("z-index", -1);
+      $(".entertainment").css("opacity", 0.0);
+      $(".entertainment-p").css("opacity", 0.0);
+      $(".personalSum").css("opacity", 1);
+      $(".personalSum-p").css("opacity", 1);
+      $(".contactInfo").css("opacity", 0.0);
+      $(".contactInfo-p").css("opacity", 0.0);
     });
 
     // Toggling the Contact Info
     $(".contactInfo_show").click(function() {
-      $(".entertainment").css("z-index", -1);
-      $(".entertainment-p").css("z-index", -1);
-      $(".personalSum").css("z-index", -1);
-      $(".personalSum-p").css("z-index", -1);
-      $(".contactInfo").css("z-index", 0);
-      $(".contactInfo-p").css("z-index", 1);
+      $(".entertainment").css("opacity", 0.0);
+      $(".entertainment-p").css("opacity", 0.0);
+      $(".personalSum").css("opacity", 0.0);
+      $(".personalSum-p").css("opacity", 0.0);
+      $(".contactInfo").css("opacity", 1.0);
+      $(".contactInfo-p").css("opacity", 1.0);
     });
   </script>
 
