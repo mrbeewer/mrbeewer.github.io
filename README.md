@@ -22,3 +22,12 @@ Problem Solving | Can play... the French horn
 Mathematics | Can play... the trombone
 Visual Basic | Knitting
 MATLAB | Wood/Metal Working
+
+
+```HTML
+    <div class="nav">
+      <button class="entertainment_show">Entertainment</button>
+      <button class="personalSum_show">Personal Summary</button>
+      <button class="contactInfo_show">Contact Info</button>
+    </div>
+```
