@@ -15,3 +15,10 @@
 3. Harry Potter
 4. Music
 5. Cats
+
+Skills | Abilities
+------------ | -------------
+Problem Solving | Can play... the French horn
+Mathematics | Can play... the trombone
+Visual Basic | Knitting
+MATLAB | Wood/Metal Working
