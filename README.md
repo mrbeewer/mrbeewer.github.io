@@ -8,7 +8,6 @@
 * **Pets:** Loki (cat, 8), Thor (cat, 1)  
 
 <br />
-<br />
 
 ###### :musical_note: Some of My Favorite Things :musical_note: 
 *(in no particular order)*
@@ -18,6 +17,8 @@
 3. Harry Potter
 4. Music
 5. Cats
+
+<br />
 
 ___
 
