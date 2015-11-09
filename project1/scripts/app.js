@@ -9,7 +9,7 @@ canvas.Scene.New({
   materials: { // loads images, sounds, videos see materials.load()
     images: {
             // For CanvasEngine load "bar" first, we add index property
-            "bar": "styles/circle.png"
+            "main": "https://github.com/mrbeewer/mrbeewer.github.io/blob/master/project1/styles/circle.png?raw=true"
 		}
   },
   // all these methods are optional
@@ -20,7 +20,7 @@ canvas.Scene.New({
   },
 
   preload: function(stage, pourcent, material) {
-    this.el.drawImage("bar", 0, 0, pourcent + "%");
+    this.el.drawImage("main", 0, 0, pourcent + "%");
   },
 
   ready: function(stage, params) {
