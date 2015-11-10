@@ -1,67 +1,38 @@
-var canvas = CE.defines("canvas_id").ready(function() {
+// 3 Heros (1 of each color)
 
-  canvas.Scene.call("MyScene");
+// 3 Green / 3 Red / 3 Blue Archers
+// 1 Any Color Archer
 
-});
+// 3 Green / 3 Red / 3 Blue Swordsman
+// 1 Any Color Swordsman
 
-canvas.Scene.New({
-  name: "MyScene", // Need this!
-  materials: { // loads images, sounds, videos see materials.load()
-    images: {
-            // For CanvasEngine load "bar" first, we add index property
-            "main": "https://github.com/mrbeewer/mrbeewer.github.io/blob/master/project1/styles/circle.png?raw=true"
-		}
-  },
-  // all these methods are optional
-  called: function(stage) {
-    // initialize an element
-    this.el = this.createElement();
-    stage.append(this.el);
-  },
+// 3 Green / 3 Red / 3 Blue Swordsman
+// 1 any color knight
 
-  preload: function(stage, pourcent, material) {
-    this.el.drawImage("main", 0, 0, pourcent + "%");
-  },
+// 8 Purple: Barbarian, Draw 2 Cards, Drive Him Back, Fortify Wall,
+//        Scavenge, Tar, Nice Shot, Missing
 
-  ready: function(stage, params) {
-    // use stage.empty() for clear stage
-  }
+// 4 Bricks / 4 Mortar
 
-});
-//
-// canvas.Scene.call("MyScene")
+// MONSTERS
 
+// 4 Boulders
+// 6 Goblins (HP 1)
+// 11 Orc (HP 2)
+// 9 Troll
+// 4 Bosses: Goblin King (HP 2), Orc Warlord (HP 3)
+//            Healer (HP 2), Troll Mage (HP 3)
+// 15 Special: All Players Discard 1 (2x), Monsters Move CW,
+//            Monsters Move CCW, Draw 3 Monster Tokens,
+//            Draw 4 Monster Tokens, Red Monsters Move 1 (2x),
+//            Green Monsters Move 1 (2x), Blue Monsters Move 1 (2x),
+//            Plague Swordsman, Plague Knights, Plague Archers
 
-/**
-    Example to create a progress bar
-*/
+// Player constructor
+function playerMaker(name, score, cardsInHand) {
+  this.name = name;
+  this.score = score;
+  this.cardsInHand = cardsInHand;
 
-// var canvas = CE.defines("canvas_id").
-// 		ready(function() {
-// 			canvas.Scene.call("MyScene");
-//         });
-//
-// canvas.Scene.new({
-// 	name: "MyScene",
-// 	materials: {
-//         // Usually put relatives links
-// 		images: {
-//             // For CanvasEngine load "bar" first, we add index property
-//             "bar": {path: "http://rsamaium.github.io/CanvasEngine/samples/preload/images/bar_full.jpg", index: 0},
-//             "1": "http://rsamaium.github.io/CanvasEngine/samples/preload/images/1.jpg",
-//             "2": "http://rsamaium.github.io/CanvasEngine/samples/preload/images/2.jpg",
-//             "3": "http://rsamaium.github.io/CanvasEngine/samples/preload/images/3.jpg"
-// 		}
-// 	},
-// 	called: function(stage) {
-//         // Initialize an element
-// 		this.el = this.createElement();
-// 		stage.append(this.el);
-// 	},
-// 	preload: function(stage, pourcent, material) {
-// 		this.el.drawImage("bar", 0, 0, pourcent + "%");
-// 	},
-// 	ready: function(stage) {
-//         // use stage.empty() for clear stage
-// 	}
-// });
+  
+}
