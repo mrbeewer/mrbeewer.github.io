@@ -99,27 +99,80 @@ monsters = {
     type: "special",
     HP: 0,
     quantity: 1
-  },
-
+  }
 }; // end monsters variable
 
 var drawPile = []; // before making hands for players, this is full (49)
-var discardPile; // before making hands for players, this is empty (0)
+var discardPile = []; // before making hands for players, this is empty (0)
+
+var monsterTokenBag = []; // Collection of monster tokens to pull from (49 at start)
+var monstersOnBoard; // collection of monster tokens currently on the board (object)
+
+var cardsInHand = [];
+var player = [];
+
+// Setting Variables
+var shuffleFactor = 5; // The number of shuffle iterations
+
+
+// Run Functions
+initializeCards();
+console.log(drawPile);
+console.log(drawPile.length);
+shuffle(drawPile);
+console.log(drawPile);
+console.log(drawPile.length);
+
+initializeMonsterTokens();
+console.log(monsterTokenBag);
+console.log(monsterTokenBag.length);
+shuffle(monsterTokenBag);
+console.log(monsterTokenBag);
+console.log(monsterTokenBag.length);
+
+// Create 2 players
+for (var i = 0; i < 2; i++) {
+  player[i] = new playerMaker("David");
+}
+
+// Generate their hands
+createPlayerHands();
 
 
 
+
+
+
+
+
+
+
+//
+//
+//
+//
+// START OF Functions
+//
+//
+//
 
 
 // Player constructor
-function playerMaker(name, score, cardsInHand) {
+function playerMaker(name) {
   this.name = name;
-  this.score = score;
-  this.cardsInHand = cardsInHand;
+  this.score = 0;
+  this.cardsInHand = [];
+  this.cardsQty = this.cardsInHand.length;
 
   this.increaseScore = function(points) {
     this.score += points;
   }
 
+  this.addCardToHand = function(popped) {
+    console.log(popped);
+    this.cardsInHand.push(popped);
+    this.cardsQty = this.cardsInHand.length;
+  }
 }
 
 
@@ -176,7 +229,7 @@ function initializeCards() {
         break;
 
       default:
-        console.log("something went wrong!");
+        console.log("Error: Creation of Player Deck (drawPile)");
       }
   }
 }
@@ -191,10 +244,73 @@ function addColorToNameAndPush(name) {
 
 
 // Start of the Monsters Initialization
+// Create the "Deck" of Monster Tokens
+function initializeMonsterTokens() {
+  for (var token in monsters) {
+    switch (monsters[token].type) {
+      case "goblin" :
+
+        for (var i = 0; i < monsters[token].quantity; i++) {
+          monsterTokenBag.push(monsters[token].name);
+        }
+        break;
+
+      case "orc" :
+
+        for (var i = 0; i < monsters[token].quantity; i++) {
+          monsterTokenBag.push(monsters[token].name);
+        }
+        break;
+
+      case "troll" :
+
+        for (var i = 0; i < monsters[token].quantity; i++) {
+          monsterTokenBag.push(monsters[token].name);
+        }
+        break;
+
+      case "boss" :
+        for (var id in monsters[token].name) {
+          monsterTokenBag.push(monsters[token].name[id]);
+        }
+        break;
+
+      case "special" :
+        for (var id in monsters[token].name) {
+          monsterTokenBag.push(monsters[token].name[id]);
+        }
+        break;
+
+      default:
+        console.log("Error: Creation of Monster Token Bag");
+      }
+  }
+}
 
 
+// Create Player hands
+//    todo: add more than 2 players
+function createPlayerHands() {
+  var popped;
+  for (var aPlayer in player) {
+    for (var i = 0; i < 6; i++) {
+      popped = drawPile.pop();
+      player[aPlayer].addCardToHand(popped);
+    };
+  };
+}
 
 
+// Set up the initial board
+// Game always starts with 3 Goblin, 2 Orc, and 1 Troll'
+// Their starting location (number) is random, but only one
+//  monster per number (arc). They start in the Archer Ring.
+function setUpBoard() {
+  var startingMonsters = ["Goblin", "Goblin", "Goblin", "Orc", "Orc", "Troll"];
+  shuffle(startingMonsters);
+
+  
+}
 
 
 
@@ -203,16 +319,23 @@ function addColorToNameAndPush(name) {
 // Helper Functions
 //
 
+// Roll a 6-sided die and return the number
+function rollDie() {
+  return Math.floor(Math.random() * 6) + 1;
+}
 
 // Shuffles an array using the Fisher-Yates Shuffle
 // Code: http://www.frankmitchell.org/2015/01/fisher-yates/
 function shuffle (array) {
-  var i = 0, j = 0, temp = null
+  for (var multiple = 0; multiple < shuffleFactor; multiple++) {
+    var i = 0, j = 0, temp = null
 
-  for (i = array.length - 1; i > 0; i -= 1) {
-    j = Math.floor(Math.random() * (i + 1))
-    temp = array[i]
-    array[i] = array[j]
-    array[j] = temp
+    for (i = array.length - 1; i > 0; i -= 1) {
+      j = Math.floor(Math.random() * (i + 1))
+      temp = array[i]
+      array[i] = array[j]
+      array[j] = temp
+    }
   }
+
 }
