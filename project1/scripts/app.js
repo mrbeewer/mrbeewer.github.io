@@ -313,10 +313,11 @@ function createPlayerHands() {
 //  monster per number (arc). They start in the Archer Ring.
 function setUpBoard() {
   var startingMonsters = ["goblin", "goblin", "goblin", "orc", "orc", "troll"];
+  var colorWedges = ["Red", "Red", "Green", "Green", "Blue", "Blue"]
   shuffle(startingMonsters);
 
   for (var i = 0; i < startingMonsters.length; i++) {
-    monstersOnBoard.push([i,startingMonsters[i], i+1+"A", monsters[startingMonsters[i]].HP]);
+    monstersOnBoard.push([i, startingMonsters[i], i + 1 + " " + colorWedges[i] +" Archer", monsters[startingMonsters[i]].HP]);
   };
 
 };
@@ -329,29 +330,28 @@ function setUpBoard() {
 
 function playerAttack(playerNum, playerCard, monsterNum) {
 
-  if ()
+  // If the card color == wedge color   &&   card type == ring type
+  if ( (player[playerNum].cardsInHand[playerCard].split(" ")[0] == monstersOnBoard[monsterNum][2].split(" ")[1]) &&
+      (player[playerNum].cardsInHand[playerCard].split(" ")[1] == monstersOnBoard[monsterNum][2].split(" ")[2]) ) {
 
-  switch (player[playerNum].cardsInHand[playerCard].search(/Knight/)) {
+    // Reduce HP by 1
+    monstersOnBoard[monsterNum][3] -= 1;
+    console.log(monstersOnBoard[monsterNum][1] + " has lost 1 HP")
+  } else {
+    console.log("Error: Not a valid attack ... playerAttack")
+  };
 
-    case -1:
-
-      switch (monstersOnBoard[monsterNum][2].charAt(1) {
-
-        case "K":
-          monstersOnBoard[monsterNum][3] -= 1;
-          break;
-
-        default:
-          console.log("Not a valid attack");
-
-      }
-
-  }
-
-  if (player[playerNum].cardsInHand[playerCard].search(/Knight/) != -1 &&
-      monstersOnBoard[monsterNum][2].search(/K/) != -1
 }
 
+
+// Check monstersOnBoard for 0 HP and remove that monster
+function checkForDeadMonsters() {
+  for (var monster in monstersOnBoard) {
+    if (monstersOnBoard[monster][3] == 0) {
+      
+    }
+  }
+}
 
 
 //
