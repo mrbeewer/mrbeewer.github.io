@@ -69,19 +69,19 @@ monsters = {
     name: "Goblin",
     type: "goblin",
     HP: 1,
-    quantity: 6
+    quantity: 3 // 3 will be on the board
   },
   orc : {
     name: "Orc",
     type: "orc",
     HP: 2,
-    quantity: 11
+    quantity: 9 // 2 will be on the board
   },
   troll : {
     name: "Troll",
     type: "troll",
     HP: 3,
-    quantity: 9
+    quantity: 8 // 1 will be on the board
   },
   boss : {
     name: ["Goblin King", "Orc Warlord", "Healer", "Troll Mage"],
@@ -106,10 +106,14 @@ var drawPile = []; // before making hands for players, this is full (49)
 var discardPile = []; // before making hands for players, this is empty (0)
 
 var monsterTokenBag = []; // Collection of monster tokens to pull from (49 at start)
-var monstersOnBoard; // collection of monster tokens currently on the board (object)
+var monstersOnBoard = []; // collection of monster tokens currently on the board (object)
 
 var cardsInHand = [];
 var player = [];
+
+var red = [1,2]; // Corresponding Color and Num Region
+var green = [3,4];
+var blue = [5,6];
 
 // Setting Variables
 var shuffleFactor = 5; // The number of shuffle iterations
@@ -138,7 +142,9 @@ for (var i = 0; i < 2; i++) {
 // Generate their hands
 createPlayerHands();
 
-
+// set up the board
+setUpBoard()
+console.log(monstersOnBoard);
 
 
 
@@ -306,12 +312,45 @@ function createPlayerHands() {
 // Their starting location (number) is random, but only one
 //  monster per number (arc). They start in the Archer Ring.
 function setUpBoard() {
-  var startingMonsters = ["Goblin", "Goblin", "Goblin", "Orc", "Orc", "Troll"];
+  var startingMonsters = ["goblin", "goblin", "goblin", "orc", "orc", "troll"];
   shuffle(startingMonsters);
 
-  
-}
+  for (var i = 0; i < startingMonsters.length; i++) {
+    monstersOnBoard.push([i,startingMonsters[i], i+1+"A", monsters[startingMonsters[i]].HP]);
+  };
 
+};
+
+
+
+// GAME PLAY
+// GAME PLAY
+// GAME PLAY
+
+function playerAttack(playerNum, playerCard, monsterNum) {
+
+  if ()
+
+  switch (player[playerNum].cardsInHand[playerCard].search(/Knight/)) {
+
+    case -1:
+
+      switch (monstersOnBoard[monsterNum][2].charAt(1) {
+
+        case "K":
+          monstersOnBoard[monsterNum][3] -= 1;
+          break;
+
+        default:
+          console.log("Not a valid attack");
+
+      }
+
+  }
+
+  if (player[playerNum].cardsInHand[playerCard].search(/Knight/) != -1 &&
+      monstersOnBoard[monsterNum][2].search(/K/) != -1
+}
 
 
 
