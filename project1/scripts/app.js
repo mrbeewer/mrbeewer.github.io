@@ -107,6 +107,8 @@ var discardPile = []; // before making hands for players, this is empty (0)
 
 var monsterTokenBag = []; // Collection of monster tokens to pull from (49 at start)
 var monstersOnBoard = []; // collection of monster tokens currently on the board (object)
+var monsterID = 5; // counter to give IDs to the monster tokens (5 from 0-5 on the board)
+
 
 var cardsInHand = [];
 var player = [];
@@ -114,6 +116,7 @@ var player = [];
 var red = [1,2]; // Corresponding Color and Num Region
 var green = [3,4];
 var blue = [5,6];
+var colorWedges = ["Red", "Red", "Green", "Green", "Blue", "Blue"];
 
 // Setting Variables
 var shuffleFactor = 5; // The number of shuffle iterations
@@ -146,7 +149,9 @@ createPlayerHands();
 setUpBoard()
 console.log(monstersOnBoard);
 
-
+// show object information
+showPlayerInfo();
+showMonstersOnBoard();
 
 
 
@@ -275,17 +280,18 @@ function initializeMonsterTokens() {
         }
         break;
 
-      case "boss" :
-        for (var id in monsters[token].name) {
-          monsterTokenBag.push(monsters[token].name[id]);
-        }
-        break;
-
-      case "special" :
-        for (var id in monsters[token].name) {
-          monsterTokenBag.push(monsters[token].name[id]);
-        }
-        break;
+        // TODO: Add in the BOSSs and the SPECIAL tokens
+      // case "boss" :
+      //   for (var id in monsters[token].name) {
+      //     monsterTokenBag.push(monsters[token].name[id]);
+      //   }
+      //   break;
+      //
+      // case "special" :
+      //   for (var id in monsters[token].name) {
+      //     monsterTokenBag.push(monsters[token].name[id]);
+      //   }
+      //   break;
 
       default:
         console.log("Error: Creation of Monster Token Bag");
@@ -295,7 +301,7 @@ function initializeMonsterTokens() {
 
 
 // Create Player hands
-//    todo: add more than 2 players
+//    TODO: add more than 2 players
 function createPlayerHands() {
   var popped;
   for (var aPlayer in player) {
@@ -313,7 +319,6 @@ function createPlayerHands() {
 //  monster per number (arc). They start in the Archer Ring.
 function setUpBoard() {
   var startingMonsters = ["goblin", "goblin", "goblin", "orc", "orc", "troll"];
-  var colorWedges = ["Red", "Red", "Green", "Green", "Blue", "Blue"]
   shuffle(startingMonsters);
 
   for (var i = 0; i < startingMonsters.length; i++) {
@@ -328,6 +333,7 @@ function setUpBoard() {
 // GAME PLAY
 // GAME PLAY
 
+// player attacking a monster tile
 function playerAttack(playerNum, playerCard, monsterNum) {
 
   // If the card color == wedge color   &&   card type == ring type
@@ -336,11 +342,22 @@ function playerAttack(playerNum, playerCard, monsterNum) {
 
     // Reduce HP by 1
     monstersOnBoard[monsterNum][3] -= 1;
-    console.log(monstersOnBoard[monsterNum][1] + " has lost 1 HP")
+    console.log(monstersOnBoard[monsterNum][1] + " has lost 1 HP");
+    checkForDeadMonsters();
   } else {
     console.log("Error: Not a valid attack ... playerAttack")
   };
 
+}
+
+// player trading cards with another player
+function playerTrade(playerNum, giveCard, getCard) {
+  // TODO: add trading functionality
+}
+
+// player discard card for another card
+function playerDiscard(playerNum, discardCard) {
+  // TODO: add discarding functionality
 }
 
 
@@ -348,10 +365,101 @@ function playerAttack(playerNum, playerCard, monsterNum) {
 function checkForDeadMonsters() {
   for (var monster in monstersOnBoard) {
     if (monstersOnBoard[monster][3] == 0) {
-      
+      monstersOnBoard.splice(monster, 1);
+    }
+  }
+  // for now, update the text on screen
+  showMonstersOnBoard();
+}
+
+// Draw token and place
+function drawTokenAndPlace() {
+  // grab a token from the Bag
+  shuffle(monsterTokenBag)
+  var newToken = monsterTokenBag.pop();
+  // roll die for which wedge
+  var location = rollDie();
+  monsterID += 1;
+  monstersOnBoard.push([monsterID, newToken.toLowerCase(), location + " " + colorWedges[location] +" Archer", monsters[newToken.toLowerCase()].HP]);
+  console.log("New Board: ");
+  console.log(monstersOnBoard);
+}
+
+// Place Monsters on board
+function placeMonstersOnBoard(newToken, location) {
+
+}
+
+// Move Monsters In 1
+function moveMonstersInOne() {
+  var tokenLocation;
+  for (var monster in monstersOnBoard) {
+      tokenLocation = monstersOnBoard[monster][2].split(" ")[2]
+    if (tokenLocation == "Forest") {
+      monstersOnBoard[monster][2] = monstersOnBoard[monster][2].replace(/Forest/, "Archer");
+    } else if (tokenLocation == "Archer") {
+      monstersOnBoard[monster][2] = monstersOnBoard[monster][2].replace(/Archer/, "Knight");
+    } else if (tokenLocation == "Knight") {
+      monstersOnBoard[monster][2] = monstersOnBoard[monster][2].replace(/Knight/, "Swordsman");
+    } else if (tokenLocation == "Swordsman") {
+      // TODO: add a check for the walls and castles
+      monstersOnBoard[monster][2] = monstersOnBoard[monster][2].replace(/Swordsman/, "Castle");
     }
   }
 }
+
+
+
+
+// DISPLAY / APPEND FUNCTIONS
+function showPlayerInfo() {
+  $("body").append("<section id=playerInfo>");
+
+  for (var aPlayer in player) {
+    var playerName = $("<article>");
+    var playerInfo = $("<li id='playerName'>");
+      playerInfo.text(player[aPlayer]["name"]);
+      playerName.append(playerInfo);
+      var playerInfo = $("<li id='playerScore'>");
+      playerInfo.text(player[aPlayer]["score"]);
+      playerName.append(playerInfo);
+      var playerInfo = $("<li id='playerCardsInHand'>");
+      playerInfo.text(player[aPlayer]["cardsInHand"]);
+      playerName.append(playerInfo);
+      $("#playerInfo").append(playerName);
+    // $("body").append(playerName);
+  }
+
+
+}
+
+// show the monsters on the board
+// monstersOnBoard.push([i, startingMonsters[i], i + 1 + " " + colorWedges[i] +" Archer", monsters[startingMonsters[i]].HP]);
+function showMonstersOnBoard() {
+  $("body").append("<section id=monsters>");
+
+  for (var token in monstersOnBoard) {
+    var playerName = $("<article>");
+    var monsterInfo = $("<li id='monsterNum'>");
+      monsterInfo.text(monstersOnBoard[token][0]);
+      playerName.append(monsterInfo);
+      var monsterInfo = $("<li id='monsterName'>");
+      monsterInfo.text(monstersOnBoard[token][1]);
+      playerName.append(monsterInfo);
+      var monsterInfo = $("<li id='monsterLocation'>");
+      monsterInfo.text(monstersOnBoard[token][2]);
+      playerName.append(monsterInfo);
+      var monsterInfo = $("<li id='monsterHP'>");
+      monsterInfo.text(monstersOnBoard[token][3]);
+      playerName.append(monsterInfo);
+      playerName.append("<br>");
+      $("#monsters").append(playerName);
+    // $("body").append(playerName);
+  }
+}
+
+
+
 
 
 //
