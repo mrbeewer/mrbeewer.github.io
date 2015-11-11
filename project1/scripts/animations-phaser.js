@@ -15,7 +15,8 @@ function preload() {
     //  string by which we'll identify the image later in our code.
 
     //  The second parameter is the URL of the image (relative)
-    game.load.image('einstein', 'styles/triangle.png');
+    game.load.image('einstein', 'images/orc.png');
+    game.load.image("background", "styles/map-with-circles.png")
 }
 
 function create() {
@@ -25,8 +26,20 @@ function create() {
     //  and assign it to a variable
 
     // (x pos, y pos, key)
+    var bng = game.add.sprite(0,0, 'background');
+    bng.height = game.height;
+    bng.width = game.width;
+
     var image = game.add.sprite(0, 0, 'einstein');
+    image.name = ["goblin", 1, "1 Red Archer"];
+    image.scale.setTo(0.5,0.5);
+
+    image.inputEnabled = true; // DONT FORGET THIS!!
+
+    image.events.onInputOver.add(onOver, this);
+
      s = image;
+     s.events.onInputDown.add(onOver, this);
     game.physics.enable(image, Phaser.Physics.ARCADE);
 
 
@@ -39,7 +52,14 @@ function create() {
     //update();
 }
 
+function onOver(sprite, pointer) {
+  sprite.tint = 0xff7777;
+  console.log(sprite.name[2]);
+}
+
 function update() {
+
+
 
   text.x = Math.floor(s.x + s.width / 2);
   text.y = Math.floor(s.y + s.height / 2);
