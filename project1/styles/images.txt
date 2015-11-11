@@ -1,0 +1,38 @@
+image sources
+
+orc.png, orc_hig.png, orc_stone.png, orc_zumbi.png, orc_zumbi_2.png
+http://opengameart.org/content/orc-static-64x64
+
+Orc_parts_updated.svg Orc_parts_updated.svg 129.4 Kb [564 download(s)]
+Orc_parts_ani001.svg Orc_parts_ani001.svg 717.6 Kb [474 download(s)]
+Orc_parts_ani_pngs.zip Orc_parts_ani_pngs.zip 198.7 Kb [689 download(s)]
+http://opengameart.org/content/orc-parts-updated
+
+lpc_entry.zip lpc_entry.zip 3.2 Mb [4289 download(s)]
+expansion_pack-0.04.zip expansion_pack-0.04.zip 1.1 Mb [3787 download(s)]
+http://opengameart.org/content/lpc-medieval-fantasy-character-sprites
+
+fantasy-tileset.png fantasy-tileset.png 24.5 Kb [2468 download(s)]
+http://opengameart.org/content/32x32-fantasy-tileset
+
+Card.zip Card.zip 7.4 Kb [353 download(s)]
+Art.zip Art.zip 3.2 Kb [547 download(s)]
+http://opengameart.org/content/40x56-card-frames-without-the-art
+
+
+Dig.png Dig.png 40.2 Kb [169 download(s)]
+Attack.png Attack.png 38 Kb [114 download(s)]
+Gear Icon.png Gear Icon.png 44.3 Kb [103 download(s)]
+Links.png Links.png 42.2 Kb [91 download(s)]
+Move.png Move.png 37.2 Kb [109 download(s)]
+Power.png Power.png 48.4 Kb [95 download(s)]
+Purple Star Icon 2.png Purple Star Icon 2.png 27.8 Kb [91 download(s)]
+Purple Star Icon.png Purple Star Icon.png 28.8 Kb [80 download(s)]
+Rocket Icon.png Rocket Icon.png 46.7 Kb [80 download(s)]
+Silver Coins Icon 2.png Silver Coins Icon 2.png 25.9 Kb [99 download(s)]
+Silver Coins Icon.png Silver Coins Icon.png 26.5 Kb [102 download(s)]
+Status.png Status.png 41.9 Kb [110 download(s)]
+Transformation.png Transformation.png 48.1 Kb [112 download(s)]
+Turn Icon.png Turn Icon.png 75.1 Kb [100 download(s)]
+Upper Border 1.jpg Upper Border 1.jpg 268.1 Kb [104 download(s)]
+http://opengameart.org/content/markeus-b-ui-buttons

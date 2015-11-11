@@ -10,7 +10,7 @@ canvas.Scene.New({
   materials: { // loads images, sounds, videos see materials.load()
     images: {
             // For CanvasEngine load "bar" first, we add index property
-            "main": "https://github.com/mrbeewer/mrbeewer.github.io/blob/master/project1/styles/circle.png?raw=true",
+            "main": "https://github.com/mrbeewer/mrbeewer.github.io/blob/master/project1/styles/map-with-circles.png?raw=true",
             "piece":
             "https://github.com/mrbeewer/mrbeewer.github.io/blob/master/project1/styles/triangle.png?raw=true",
 		}

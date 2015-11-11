@@ -150,8 +150,8 @@ setUpBoard()
 console.log(monstersOnBoard);
 
 // show object information
-showPlayerInfo();
-showMonstersOnBoard();
+// showPlayerInfo();
+// showMonstersOnBoard();
 
 
 
@@ -385,10 +385,6 @@ function drawTokenAndPlace() {
   console.log(monstersOnBoard);
 }
 
-// Place Monsters on board
-function placeMonstersOnBoard(newToken, location) {
-
-}
 
 // Move Monsters In 1
 function moveMonstersInOne() {
