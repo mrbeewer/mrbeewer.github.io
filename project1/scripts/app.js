@@ -102,6 +102,17 @@ monsters = {
   }
 }; // end monsters variable
 
+boardLocations = {
+  one : {
+    forest : [376, 29, 443, 66],
+    archer : [360, 53, 435, 95],
+    knight : [383, 85, 409, 104],
+    swordsman : [359, 104, 387, 118],
+    castle : [362, 132]
+  }
+
+}
+
 var drawPile = []; // before making hands for players, this is full (49)
 var discardPile = []; // before making hands for players, this is empty (0)
 
@@ -461,6 +472,11 @@ function showMonstersOnBoard() {
 //
 // Helper Functions
 //
+
+function callAnimation() {
+  callingFromAnimation();
+}
+
 
 // Roll a 6-sided die and return the number
 function rollDie() {
