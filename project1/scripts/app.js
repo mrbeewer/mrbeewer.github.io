@@ -15,39 +15,39 @@ cards = {
   swordsman : {
     name: "Swordsman",
     type: "swordsman",
-    quantity: 3
+    quantity: 6
   },
   archer : {
     name: "Archer",
     type: "archer",
-    quantity: 3
+    quantity: 6
   },
   knight : {
     name: "Knight",
     type: "knight",
-    quantity: 3
-  },
-  hero : {
-    name: "Hero",
-    type: "hero",
-    quantity: 1
-  },
-  special : {
-    name: ["Barbarian", "Draw 2 Cards", "Drive Him Back", "Fortify",
-          "Scavenge", "Tar", "Nice Shot", "Missing"],
-    type: "special",
-    quantity: 1
-  },
-  bricks : {
-    name: "Bricks",
-    type: "bricks",
-    quantity: 4
-  },
-  mortar : {
-    name: "Mortar",
-    type: "mortar",
-    quantity: 4
-  }
+    quantity: 6
+  } // TODO: Add in Hero, Special, Bricks, and Mortar
+  // hero : {
+  //   name: "Hero",
+  //   type: "hero",
+  //   quantity: 1
+  // },
+  // special : {
+  //   name: ["Barbarian", "Draw 2 Cards", "Drive Him Back", "Fortify",
+  //         "Scavenge", "Tar", "Nice Shot", "Missing"],
+  //   type: "special",
+  //   quantity: 1
+  // },
+  // bricks : {
+  //   name: "Bricks",
+  //   type: "bricks",
+  //   quantity: 4
+  // },
+  // mortar : {
+  //   name: "Mortar",
+  //   type: "mortar",
+  //   quantity: 4
+  // }
 }; // end cards variable
 
 
@@ -82,24 +82,25 @@ monsters = {
     type: "troll",
     HP: 3,
     quantity: 8 // 1 will be on the board
-  },
-  boss : {
-    name: ["Goblin King", "Orc Warlord", "Healer", "Troll Mage"],
-    type: "boss",
-    HP: [2, 3, 2, 3],
-    quantity: 1
-  },
-  special : {
-    name: ["All Players Discard 1", "All Players Discard", "Monsters Move Clock-Wise",
-          "Monsters Move Counter-Clock-Wise", "Draw 3 Monster Tokens", "Draw 4 Monster Tokens",
-          "Red Monsters Move 1", "Red Monsters Move 1", "Blue Monsters Move 1",
-          "Blue Monsters Move 1", "Green Monsters Move 1", "Green Monsters Move 1",
-          "Plague Swordsmen", "Plague Knights", "Plague Archers", "Giant Boulder",
-          "Giant Boulder", "Giant Boulder", "Giant Boulder"],
-    type: "special",
-    HP: 0,
-    quantity: 1
   }
+  // TODO: Add in Boss, Special monster tokens
+  // boss : {
+  //   name: ["Goblin King", "Orc Warlord", "Healer", "Troll Mage"],
+  //   type: "boss",
+  //   HP: [2, 3, 2, 3],
+  //   quantity: 1
+  // },
+  // special : {
+  //   name: ["All Players Discard 1", "All Players Discard", "Monsters Move Clock-Wise",
+  //         "Monsters Move Counter-Clock-Wise", "Draw 3 Monster Tokens", "Draw 4 Monster Tokens",
+  //         "Red Monsters Move 1", "Red Monsters Move 1", "Blue Monsters Move 1",
+  //         "Blue Monsters Move 1", "Green Monsters Move 1", "Green Monsters Move 1",
+  //         "Plague Swordsmen", "Plague Knights", "Plague Archers", "Giant Boulder",
+  //         "Giant Boulder", "Giant Boulder", "Giant Boulder"],
+  //   type: "special",
+  //   HP: 0,
+  //   quantity: 1
+  // }
 }; // end monsters variable
 
 boardLocations = {
@@ -209,7 +210,8 @@ function initializeCards() {
         for (var i = 0; i < cards[card].quantity; i++) {
           addColorToNameAndPush(cards[card].name);
         }
-        drawPile.push("Any Color " + cards[card].name);
+        // TODO: Add Any Color ****
+        //drawPile.push("Any Color " + cards[card].name);
         break;
 
       case "knight" :
@@ -217,7 +219,7 @@ function initializeCards() {
         for (i = 0; i < cards[card].quantity; i++) {
           addColorToNameAndPush(cards[card].name);
         }
-        drawPile.push("Any Color " + cards[card].name);
+        //drawPile.push("Any Color " + cards[card].name);
         break;
 
       case "archer" :
@@ -225,7 +227,7 @@ function initializeCards() {
         for (i = 0; i < cards[card].quantity; i++) {
           addColorToNameAndPush(cards[card].name);
         }
-        drawPile.push("Any Color " + cards[card].name);
+        //drawPile.push("Any Color " + cards[card].name);
         break;
 
       case "hero" :
@@ -258,9 +260,9 @@ function initializeCards() {
 
 // For Swordsman, Knights, Archers, and Heros, add the color to the name
 function addColorToNameAndPush(name) {
-  drawPile.push("Blue " + name);
-  drawPile.push("Red " + name);
-  drawPile.push("Green " + name);
+  drawPile.push("Blue" + name);
+  drawPile.push("Red" + name);
+  drawPile.push("Green" + name);
   return;
 }
 
@@ -291,18 +293,17 @@ function initializeMonsterTokens() {
         }
         break;
 
-        // TODO: Add in the BOSSs and the SPECIAL tokens
-      // case "boss" :
-      //   for (var id in monsters[token].name) {
-      //     monsterTokenBag.push(monsters[token].name[id]);
-      //   }
-      //   break;
-      //
-      // case "special" :
-      //   for (var id in monsters[token].name) {
-      //     monsterTokenBag.push(monsters[token].name[id]);
-      //   }
-      //   break;
+      case "boss" :
+        for (var id in monsters[token].name) {
+          monsterTokenBag.push(monsters[token].name[id]);
+        }
+        break;
+
+      case "special" :
+        for (var id in monsters[token].name) {
+          monsterTokenBag.push(monsters[token].name[id]);
+        }
+        break;
 
       default:
         console.log("Error: Creation of Monster Token Bag");
