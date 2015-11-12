@@ -64,7 +64,7 @@ cards = {
 //            Plague Swordsman, Plague Knights, Plague Archers,
 //            Giant Boulders (4x)
 
-monsters = {
+monsterTokens = {
   goblin : {
     name: "Goblin",
     type: "goblin",
@@ -121,6 +121,7 @@ var monsterTokenBag = []; // Collection of monster tokens to pull from (49 at st
 var monstersOnBoard = []; // collection of monster tokens currently on the board (object)
 var monsterID = 5; // counter to give IDs to the monster tokens (5 from 0-5 on the board)
 
+var soloPlay = true; // flag for solo play or 2 player
 
 var cardsInHand = [];
 var player = [];
@@ -134,36 +135,7 @@ var colorWedges = ["Red", "Red", "Green", "Green", "Blue", "Blue"];
 var shuffleFactor = 5; // The number of shuffle iterations
 
 
-// Run Functions
-initializeCards();
-console.log(drawPile);
-console.log(drawPile.length);
-shuffle(drawPile);
-console.log(drawPile);
-console.log(drawPile.length);
 
-initializeMonsterTokens();
-console.log(monsterTokenBag);
-console.log(monsterTokenBag.length);
-shuffle(monsterTokenBag);
-console.log(monsterTokenBag);
-console.log(monsterTokenBag.length);
-
-// Create 2 players
-for (var i = 0; i < 2; i++) {
-  player[i] = new playerMaker("David");
-}
-
-// Generate their hands
-createPlayerHands();
-
-// set up the board
-setUpBoard()
-console.log(monstersOnBoard);
-
-// show object information
-// showPlayerInfo();
-// showMonstersOnBoard();
 
 
 
@@ -197,6 +169,63 @@ function playerMaker(name) {
     this.cardsQty = this.cardsInHand.length;
   }
 }
+
+// Create Players
+function createPlayers(num) {
+  // Create 2 players
+  for (var i = 0; i < num; i++) {
+    player[i] = new playerMaker("player"+i);
+    console.log("player made");
+    console.log(player[i]);
+  };
+  console.log("player!!");
+  console.log(player[0]);
+  //prepareGame();
+}
+
+// Prepare Everything
+function prepareGame(num) {
+
+  for (var i = 0; i < num; i++) {
+    player[i] = new playerMaker("player"+i);
+    console.log("player made");
+    console.log(player[i]);
+  };
+  console.log("player!!");
+  console.log(player[0]);
+  // Run Functions
+  initializeCards();
+  console.log(drawPile);
+  console.log(drawPile.length);
+  shuffle(drawPile);
+  console.log(drawPile);
+  console.log(drawPile.length);
+
+  initializeMonsterTokens();
+  console.log(monsterTokenBag);
+  console.log(monsterTokenBag.length);
+  shuffle(monsterTokenBag);
+  console.log(monsterTokenBag);
+  console.log(monsterTokenBag.length);
+
+  // Generate their hands
+  createPlayerHands();
+
+  // Show hand(s)
+  drawHands();
+
+  // set up the board (array wise)
+  setUpBoard();
+  console.log(monstersOnBoard);
+
+  // Show Monsters on the board
+  drawMonsters();
+  // 
+  // show object information
+  // showPlayerInfo();
+  // showMonstersOnBoard();
+}
+
 
 
 // Start of Player Deck Initialization
@@ -270,38 +299,38 @@ function addColorToNameAndPush(name) {
 // Start of the Monsters Initialization
 // Create the "Deck" of Monster Tokens
 function initializeMonsterTokens() {
-  for (var token in monsters) {
-    switch (monsters[token].type) {
+  for (var token in monsterTokens) {
+    switch (monsterTokens[token].type) {
       case "goblin" :
 
-        for (var i = 0; i < monsters[token].quantity; i++) {
-          monsterTokenBag.push(monsters[token].name);
+        for (var i = 0; i < monsterTokens[token].quantity; i++) {
+          monsterTokenBag.push(monsterTokens[token].name);
         }
         break;
 
       case "orc" :
 
-        for (var i = 0; i < monsters[token].quantity; i++) {
-          monsterTokenBag.push(monsters[token].name);
+        for (var i = 0; i < monsterTokens[token].quantity; i++) {
+          monsterTokenBag.push(monsterTokens[token].name);
         }
         break;
 
       case "troll" :
 
-        for (var i = 0; i < monsters[token].quantity; i++) {
-          monsterTokenBag.push(monsters[token].name);
+        for (var i = 0; i < monsterTokens[token].quantity; i++) {
+          monsterTokenBag.push(monsterTokens[token].name);
         }
         break;
 
       case "boss" :
-        for (var id in monsters[token].name) {
-          monsterTokenBag.push(monsters[token].name[id]);
+        for (var id in monsterTokens[token].name) {
+          monsterTokenBag.push(monsterTokens[token].name[id]);
         }
         break;
 
       case "special" :
-        for (var id in monsters[token].name) {
-          monsterTokenBag.push(monsters[token].name[id]);
+        for (var id in monsterTokens[token].name) {
+          monsterTokenBag.push(monsterTokens[token].name[id]);
         }
         break;
 
@@ -342,7 +371,7 @@ function setUpBoard() {
   shuffle(startingMonsters);
 
   for (var i = 0; i < startingMonsters.length; i++) {
-    monstersOnBoard.push([i, startingMonsters[i], i + 1 + " " + colorWedges[i] +" Archer", monsters[startingMonsters[i]].HP]);
+    monstersOnBoard.push([i, startingMonsters[i], i + 1 + " " + colorWedges[i] +" Archer", monsterTokens[startingMonsters[i]].HP]);
   };
 
 };

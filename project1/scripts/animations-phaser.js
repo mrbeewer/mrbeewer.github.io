@@ -1,5 +1,5 @@
 // new Phaser.Game(width, height, )
-var game = new Phaser.Game(720, 365, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(720, 365, Phaser.AUTO, 'phaser-example', { preload: this.preload, create: this.create, update: this.update });
 
 var s;
 var text;
@@ -17,6 +17,9 @@ var goodGuySprite;
 var goodGuyID = undefined;
 var monsterSprite;
 var monsterID = undefined;
+
+var p1score;
+var p2score;
 
 var style = {font: "20px Arial", fill: "#ffffff", wordWrap: false, align: "center"};
 
@@ -96,6 +99,8 @@ function preload() {
     game.load.image("btnDiscard", "styles/btnDiscard.png");
     game.load.image("btnDone", "styles/btnDone.png");
     game.load.image("btnStart", "styles/btnStart.png");
+    game.load.image("btn1Player", "styles/btn1Player.png");
+    game.load.image("btn2Players", "styles/btn2Players.png");
 
     // cards
     game.load.image("RedKnight", "styles/RedKnight.png");
@@ -107,7 +112,6 @@ function preload() {
     game.load.image("RedSwordsman", "styles/RedSwordsman.png");
     game.load.image("BlueSwordsman", "styles/BlueSwordsman.png");
     game.load.image("GreenSwordsman", "styles/GreenSwordsman.png");
-
 
 }
 
@@ -139,6 +143,8 @@ function drawHands() {
 }
 
 function drawMonsters() {
+  clearMonstersOnBoard();
+
   for (var i = 0; i < monstersOnBoard.length; i++) {
     cnt += 1;
     //var spriteX = (game.width * 0.5) - (s.width / 2); // 50%
@@ -223,6 +229,14 @@ function clearAndRebuildPlayerCards() {
   playerCardsObject[playerMove] = playerCards;
 }
 
+function clearMonstersOnBoard() {
+  // Clear cards
+  for (var i = 0; i < monsters.length; i++) {
+    monsters[i].destroy();
+    textArray[i].destroy()
+  }
+}
+
 function onPlayerActionClick(sprite, pointer) {
   console.log(sprite.name);
 }
@@ -252,15 +266,26 @@ function create() {
     btnStart.name = "btnStart";
     btnStart.scale.setTo(1, 1);
 
-    // Score text
-    style = {font: "20px Arial", fill: "#ffffff", wordWrap: false, align: "center"};
 
-    playerOneScoreText = game.add.text(30, 0, "Player 1 Score: " + player[0].score, style);
-    playerTwoScoreText = game.add.text(530, 0, "Player 2 Score: " + player[1].score, style);
+
     //textArray[i].anchor.set(0.5);
 
-    // TODO: Add 1 Player / 2 Players buttons
+    // CHANGED: Add 1 Player / 2 Players buttons
+    style = {font: "20px Arial", fill: "#ffffff", wordWrap: false, align: "center"};
+    //
+    // if (player.length !== 0) {
+    //   p1score = 0;
+    //   p2score = 0;
+    // } else if (player.length == 1) {
+    //   p1score = player[0].score;
+    //   p2score = "N/A";
+    // } else if (player.length == 2) {
+    //   p1score = player[0].score;
+    //   p2score = player[1].score;
+    // }
 
+    playerOneScoreText = game.add.text(30, 0, "Player 1 Score: " + "N/A", style);
+    playerTwoScoreText = game.add.text(530, 0, "Player 2 Score: " + "N/A", style);
 
 
     // var card = game.add.sprite(0, 275, 'RedArcher');
@@ -292,7 +317,7 @@ function create() {
 
 
     //image.body.velocity.x=150;
-    //update();
+    update();
 }
 
 function onOver(sprite, pointer) {
@@ -305,12 +330,29 @@ function actionOnClick(sprite, pointer) {
   // sprite.tint = 0xdf4efc;
 }
 
-function callingFromAnimation() {
-  console.log("it works!");
-}
+// function callingFromAnimation() {
+//   console.log("it works!");
+// }
 
 
-
+// function createScoreText() {
+//   // Score text
+//   style = {font: "20px Arial", fill: "#ffffff", wordWrap: false, align: "center"};
+//
+//   if (player.length !== 0) {
+//     p1score = 0;
+//     p2score = 0;
+//   } else if (player.length == 1) {
+//     p1score = player[0].score;
+//     p2score = "N/A";
+//   } else if (player.length == 2) {
+//     p1score = player[0].score;
+//     p2score = player[1].score;
+//   }
+//
+//   playerOneScoreText = game.add.text(30, 0, "Player 1 Score: " + p1score, style);
+//   playerTwoScoreText = game.add.text(530, 0, "Player 2 Score: " + p2score, style);
+// }
 
 
 
@@ -337,9 +379,19 @@ function update() {
   // Keeps text with an object
   // text.x = Math.floor(s.x + s.width / 2);
   // text.y = Math.floor(s.y + 0 * s.height / 2);
+  if (player.length == 0) {
+    p1score = 0;
+    p2score = 0;
+  } else if (player.length == 1) {
+    p1score = player[0].score;
+    p2score = "N/A";
+  } else if (player.length == 2) {
+    p1score = player[0].score;
+    p2score = player[1].score;
+  }
 
-  playerOneScoreText.setText("Player 1 Score: " + player[0].score);
-  playerTwoScoreText.setText("Player 2 Score: " + player[1].score);
+  playerOneScoreText.setText("Player 1 Score: " + p1score);
+  playerTwoScoreText.setText("Player 2 Score: " + p2score);
 
   for (var i = 0; i < monsters.length; i++) {
     textArray[i].x = Math.floor(monsters[i].x + monsters[i].width / 2);
@@ -454,14 +506,30 @@ function initiateAttack(goodGuyIDVar,monsterIDVar) {
           var index = i;
         }
       }
+
+      for (var i = 0; i < monstersOnBoard.length; i++) {
+        if (monstersOnBoard[i][2] == monsterIDVar[2]) {
+          console.log("monsters on board index: " + i);
+          var idxMonstersOnBoard = i;
+        }
+      }
+
+
       console.log(monsters[index].name);
+
+      // Reduce HP by 1
       monsters[index].name[3] -= 1;
+      monstersOnBoard[idxMonstersOnBoard][3] = monstersOnBoard[idxMonstersOnBoard][3] - 1;
+
+      // if HP is at 0
       if (monsters[index].name[3] == 0) {
+        monstersOnBoard.splice(idxMonstersOnBoard,1);
         monsters[index].destroy();
         monsters.splice(index,1);
         player[playerMove].increaseScore(100); //for now all the same points
         console.log("monster removed");
       }
+
     } else {
       console.log("Not a valid attack", goodGuyID, monsterID);
     }
@@ -476,27 +544,56 @@ function onDoneClick(sprite, pointer) {
 
   clearAndRebuildPlayerCards(); // remove the card sprites and replaces with new hand
 
+  moveMonstersInOne(); // move the monsters on the board a ring closer
+
+  drawMonsters(); // redraw the monsters
+
+
+  console.log("soloPlay: " + soloPlay);
+  console.log("playerMove: " + playerMove);
   // just for 2 players ... keeps track of who's move it is
-  if (playerMove == 0) {
-    playerMove = 1;
-    btnDone.reset(650,130);
-    btnDiscard.reset(585, 130);
-    btnAttack.reset(520, 130);
-  } else {
-    playerMove = 0;
-    btnAttack.reset(5, 130);
-    btnDiscard.reset(70, 130);
-    btnDone.reset(135,130);
+  if (soloPlay == false) {
+    if (playerMove == 0) {
+      playerMove = 1;
+      btnDone.reset(650,130);
+      btnDiscard.reset(585, 130);
+      btnAttack.reset(520, 130);
+    } else {
+      playerMove = 0;
+      btnAttack.reset(5, 130);
+      btnDiscard.reset(70, 130);
+      btnDone.reset(135,130);
+    }
   }
 }
 
-function moveBtn() {
-  btnDone.reset(650,130);
-  btnDiscard.reset(585, 130);
-  btnAttack.reset(520, 130);
-  // btnDiscard.reset(x,y);
-}
+
 
 function onStartClick(sprite,pointer) {
   console.log("start the game!!!!");
+  sprite.destroy();
+
+  btn1Player = game.add.button(20, 90, 'btn1Player', on1PlayerClick, this);
+  btn1Player.name = "btn1Player";
+  btn1Player.scale.setTo(1, 1);
+
+  btn2Players = game.add.button(360, 90, 'btn2Players', on2PlayersClick, this);
+  btn2Players.name = "btn2Players";
+  btn2Players.scale.setTo(1, 1);
 };
+
+function on1PlayerClick(sprite,point) {
+  console.log("1 Player Game!");
+  sprite.destroy();
+  btn2Players.destroy();
+  soloPlay = true;
+  createPlayers(1);
+}
+
+function on2PlayersClick(sprite,point) {
+  console.log("2 Player Game!");
+  sprite.destroy();
+  btn1Player.destroy();
+  soloPlay = false;
+  prepareGame(2);
+}
