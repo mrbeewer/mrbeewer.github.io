@@ -12,8 +12,8 @@ var btnAttack;
 var btnDiscard;
 var btnDone;
 
-var goodGuyID;
-var monsterID;
+var goodGuyID = undefined;
+var monsterID = undefined;
 
 var playerMove = 0; //Done btn to change this?
 
@@ -52,12 +52,19 @@ var monsterLoc = {
        [0.37,	0.21],	[0.42,	0.16],
        [0.38,	0.30],	[0.46,	0.28],
        [0.42,	0.31],	[0.46,	0.28],
-       [0.45,	0.37]]       
-}
+       [0.45,	0.37]]
+};
 
-function callme() {
-  s.x += 40;
-}
+// False - only one monster on that wedge[ring]
+var doubleMonster = {
+  1 : [false,false,false,false],
+  2 : [false,false,false,false],
+  3 : [false,false,false,false],
+  4 : [false,false,false,false],
+  5 : [false,false,false,false],
+  6 : [false,false,false,false]
+};
+
 
 function preload() {
 
@@ -121,8 +128,66 @@ function drawHands() {
 }
 
 function drawMonsters() {
+  for (var i = 0; i < monstersOnBoard.length; i++) {
+    cnt += 1;
+    //var spriteX = (game.width * 0.5) - (s.width / 2); // 50%
+    //var spriteY = (game.height * 0.5) - (s.height / 2); // 50%
+    //monsters[cnt] = game.add.sprite(spriteX, spriteY, 'orc');
+    var monsterWedgeNum = monstersOnBoard[i][2].split(" ")[0]; // 1...2...3 ... etc
+    var monsterRingID = monstersOnBoard[i][2].split(" ")[2]; // Archer... Knight... etc
+    var monsterCoordinatesX;
+    var monsterCoordinatesY;
 
+    if (monsterRingID == "Forest") {
+      if (doubleMonster[monsterWedgeNum][0] == false) {
+        monsterCoordinatesX = monsterLoc[monsterWedgeNum][0][0];
+        monsterCoordinatesY = monsterLoc[monsterWedgeNum][0][1];
+      } else {
+        monsterCoordinatesX = monsterLoc[monsterWedgeNum][1][0];
+        monsterCoordinatesY = monsterLoc[monsterWedgeNum][1][1];
+      }
+    } else if (monsterRingID == "Archer") {
+      if (doubleMonster[monsterWedgeNum][1] == false) {
+        monsterCoordinatesX = monsterLoc[monsterWedgeNum][2][0];
+        monsterCoordinatesY = monsterLoc[monsterWedgeNum][2][1];
+      } else {
+        monsterCoordinatesX = monsterLoc[monsterWedgeNum][3][0];
+        monsterCoordinatesY = monsterLoc[monsterWedgeNum][3][1];
+      }
+    } else if (monsterRingID == "Knight") {
+      if (doubleMonster[monsterWedgeNum][2] == false) {
+        monsterCoordinatesX = monsterLoc[monsterWedgeNum][4][0];
+        monsterCoordinatesY = monsterLoc[monsterWedgeNum][4][1];
+      } else {
+        monsterCoordinatesX = monsterLoc[monsterWedgeNum][5][0];
+        monsterCoordinatesY = monsterLoc[monsterWedgeNum][5][1];
+      }
+    } else if (monsterRingID == "Swordsman") {
+      if (doubleMonster[monsterWedgeNum][3] == false) {
+        monsterCoordinatesX = monsterLoc[monsterWedgeNum][6][0];
+        monsterCoordinatesY = monsterLoc[monsterWedgeNum][6][1];
+      } else {
+        monsterCoordinatesX = monsterLoc[monsterWedgeNum][7][0];
+        monsterCoordinatesY = monsterLoc[monsterWedgeNum][7][1];
+      }
+    } else {
+      monsterCoordinatesX = monsterLoc[monsterWedgeNum][8][0];
+      monsterCoordinatesY = monsterLoc[monsterWedgeNum][8][1];
+    }
 
+    monsters[i] = game.add.sprite(monsterCoordinatesX * game.width, monsterCoordinatesY * game.height, 'orc');
+    //monsters[cnt].inputEnabled = true;
+    //monsters[cnt].events.onInputOver.add(onOver, this);
+    monsters[i].name = [ i, monstersOnBoard[i][1], monstersOnBoard[i][2], monstersOnBoard[i][3]];
+    monsters[i].scale.setTo(0.5,0.5);
+
+    var style = {font: "10px Arial", fill: "#ffffff", wordWrap: true, wordWrapWidth: monsters[i].width, align: "center"};
+
+    textArray[i] = game.add.text(0, 0, "HP: " + monstersOnBoard[i][3], style);
+    textArray[i].anchor.set(0.5);
+  }
+
+  update();
 
 }
 
@@ -164,23 +229,23 @@ function create() {
     // s = card;
 
 
-    var image = game.add.sprite(360, 25, 'orc');
-    image.name = ["goblin", 1, "1 Red Archer"];
-    image.scale.setTo(0.5,0.5);
-
-    // image.inputEnabled = true; // DONT FORGET THIS!!
-    // image.events.onInputOver.add(onOver, this);
-
-     s = image;
-     s.events.onInputDown.add(onClick, this);
-    game.physics.enable(image, Phaser.Physics.ARCADE);
-
-
-    // Create text
-    var style = {font: "10px Arial", fill: "#ffffff", wordWrap: true, wordWrapWidth: s.width, align: "center"};
-
-    text = game.add.text(0, 0, "HP: 3", style);
-    text.anchor.set(0.5);
+    // var image = game.add.sprite(360, 25, 'orc');
+    // image.name = ["goblin", 1, "1 Red Archer"];
+    // image.scale.setTo(0.5,0.5);
+    //
+    // // image.inputEnabled = true; // DONT FORGET THIS!!
+    // // image.events.onInputOver.add(onOver, this);
+    //
+    //  s = image;
+    //  s.events.onInputDown.add(onClick, this);
+    // game.physics.enable(image, Phaser.Physics.ARCADE);
+    //
+    //
+    // // Create text
+    // var style = {font: "10px Arial", fill: "#ffffff", wordWrap: true, wordWrapWidth: s.width, align: "center"};
+    //
+    // text = game.add.text(0, 0, "HP: 3", style);
+    // text.anchor.set(0.5);
 
 
     //image.body.velocity.x=150;
@@ -227,12 +292,13 @@ function onClick(sprite, pointer) {
 
 function update() {
   // Keeps text with an object
-  text.x = Math.floor(s.x + s.width / 2);
-  text.y = Math.floor(s.y + 0 * s.height / 2);
+  // text.x = Math.floor(s.x + s.width / 2);
+  // text.y = Math.floor(s.y + 0 * s.height / 2);
 
-  for (var i = 1; i < monsters.length; i++) {
+  for (var i = 0; i < monsters.length; i++) {
     textArray[i].x = Math.floor(monsters[i].x + monsters[i].width / 2);
     textArray[i].y = Math.floor(monsters[i].y + 0 * monsters[i].height / 2);
+    textArray[i].setText("HP: " + monsters[i].name[3])
   }
 
 
@@ -270,10 +336,52 @@ function onAttackClick(sprite, pointer) {
     playerCardsObject[playerMove][i].events.onInputDown.add(onGoodGuyClick, this);
 
   }
+
+  for (var i = 0; i < monsters.length; i++) {
+    console.log("attack clicked");
+    monsters[i].inputEnabled = true;
+    monsters[i].events.onInputDown.add(onMonsterClick, this);
+
+  }
   update();
 }
 
 function onGoodGuyClick(sprite, pointer) {
   goodGuyID = sprite.name;
   console.log(goodGuyID);
+
+  if (typeof(goodGuyID) !== 'undefined' && typeof(monsterID) !== 'undefined') {
+    initiateAttack(goodGuyID,monsterID);
+  };
+
+}
+
+function onMonsterClick(sprite, pointer) {
+  monsterID = sprite.name;
+  console.log(monsterID);
+
+  if (typeof(goodGuyID) !== 'undefined' && typeof(monsterID) !== 'undefined') {
+    initiateAttack(goodGuyID,monsterID);
+  };
+}
+
+function initiateAttack(goodGuyID,monsterID) {
+  console.log("initiateAttack");
+  console.log(goodGuyID);
+  console.log((monsterID[2].split(" ")[1] + monsterID[2].split(" ")[2]));
+  if (goodGuyID == (monsterID[2].split(" ")[1] + monsterID[2].split(" ")[2])) {
+    monsters[monsterID[0]].name[3] -= 1;
+    if (monsters[monsterID[0]].name[3] == 0) {
+      monsters[monsterID[0]].destroy();
+      monsters.splice(monsterID[0],1);
+      console.log("monster removed");
+      goodGuyID = undefined;
+      monsterID = undefined;
+    }
+  } else {
+    console.log("Not a valid attack");
+    goodGuyID = undefined;
+    monsterID = undefined;
+  }
+
 }
