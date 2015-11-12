@@ -324,6 +324,14 @@ function createPlayerHands() {
   };
 }
 
+// Draw up so hands are back at 6
+function drawCardsUntilSix() {
+  for (var i = 0; player[playerMove].cardsInHand.length < 6; i++) {
+    popped = drawPile.pop();
+    player[playerMove].addCardToHand(popped);
+  }
+}
+
 
 // Set up the initial board
 // Game always starts with 3 Goblin, 2 Orc, and 1 Troll'
