@@ -32,7 +32,6 @@
     * orc.png
     * LordNeo - http://opengameart.org/content/orc-static-64x64
     * License - CC0
-
  * Buttons
     * button.Scavenge
     * pzUH - http://opengameart.org/content/medieval-game-button-pack
