@@ -4,39 +4,18 @@
 ###### About Me
 
 * **Education:** BS / MS in Materials Science and Engineering
-* **Experience:** Laser-Material Interaction, Robotic Communication (VB), Matlab Programming
-* **Pets:** Loki (cat, 8), Thor (cat, 1)  
+* **Experience:** Laser-Material Interaction, Robotic Communication (VB), Excel Automation
+* **Languages:** Javascript, HTML, CSS, Visual Basic, Fortran, MATLAB
+* **Pets:** Loki (cat, 8), Thor (cat, 1)
+* **Favorite Movie/Book Collections:** Star Wars, Harry Potter, Lord of the Rings
 
-<br />
+**Embrace your Weird?** I do! Aside from the above, I love solving problems and automating processes. Although aesthetics are not my forte, give me a problem to solve, and I will try my darndest to figure it out!
 
-###### :musical_note: Some of My Favorite Things :musical_note: 
-*(in no particular order)*
 
-1. Star Wars
-2. Lord of the Rings
-3. Harry Potter
-4. Music
-5. Cats
+#### Projects:
 
-<br />
-
-___
-
-###### Testing of Table Creation
-Skills | Abilities
------------- | -------------
-Problem Solving | Can play... the French horn
-Mathematics | Can play... the trombone
-Visual Basic | Knitting
-MATLAB | Wood/Metal Working
-
-___
-
-###### Testing of Code Blocks
-```HTML
-    <div class="nav">
-      <button class="entertainment_show">Entertainment</button>
-      <button class="personalSum_show">Personal Summary</button>
-      <button class="contactInfo_show">Contact Info</button>
-    </div>
-```
+* General Assembly Project 1 - Build a Game!
+ * Game Title: "We're Under Attack!"
+ * Play!: http://mrbeewer.github.io/project1/
+ * Repository: https://github.com/mrbeewer/mrbeewer.github.io/tree/master/project1
+ * Check out the README.MD for more detailed information!
