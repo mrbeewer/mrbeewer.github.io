@@ -17,11 +17,26 @@
     * Game Logic
 
 #### Image Sources:
- * Map - http://gmtools.uo1.net/
- * Weapons, Knight, Castle - Jerom http://opengameart.org/content/32x32-fantasy-tileset
- * Cards - Mumu http://opengameart.org/content/40x56-card-frames-without-the-art
- * Orc - LordNeo http://opengameart.org/content/orc-static-64x64
- * Buttons - pzUH http://opengameart.org/content/medieval-game-button-pack
+ * Map
+    * Source: http://gmtools.uo1.net/
+    * Free for use
+ * Weapons, Knight, Castle
+    * fantasy-tileset.png
+    * Jerom - http://opengameart.org/content/32x32-fantasy-tileset
+    * License - CC-BY-SA 3.0
+ * Cards
+    * GoldFrame.png
+    * Mumu - http://opengameart.org/content/40x56-card-frames-without-the-art
+    * License - CC0
+ * Orc
+    * orc.png
+    * LordNeo - http://opengameart.org/content/orc-static-64x64
+    * License - CC0
+
+ * Buttons
+    * button.Scavenge
+    * pzUH - http://opengameart.org/content/medieval-game-button-pack
+    * License - CC0
 
 
 #### Approach:
