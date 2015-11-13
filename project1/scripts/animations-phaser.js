@@ -119,7 +119,7 @@ function preload() {
     game.load.image("background", "styles/map-with-circles.png");
 
     // monsters
-    game.load.image('orc', 'images/orc.png');
+    game.load.image('orc', 'styles/orc.png');
 
     // buttons
     game.load.image("btnAttack", "styles/btnAttack.png");
