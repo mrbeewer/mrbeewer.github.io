@@ -3,10 +3,10 @@
 
 ### *Currently Under Development*
 
-![We're Under Attack! Sample Image][http://i.imgur.com/7EuqCB0.png]
+![We're Under Attack! Sample Image](http://i.imgur.com/7EuqCB0.png)
 
 #### Technologies Used:
- * Phaser Framework 2.4.4 - (http://phaser.io/)
+ * Phaser Framework 2.4.4 - http://phaser.io/
     * Animation and Image Control
     * Event Listeners
  * HTML5
