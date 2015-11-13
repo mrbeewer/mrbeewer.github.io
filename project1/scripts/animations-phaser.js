@@ -1,3 +1,11 @@
+//////////////////////////////////////////////////////////
+//                                                      //
+//                                                      //
+//      Variables!!!                                    //
+//                                                      //
+//                                                      //
+//////////////////////////////////////////////////////////
+
 // new Phaser.Game(width, height, )
 var game = new Phaser.Game(720, 365, Phaser.AUTO, 'phaser-example', { preload: this.preload, create: this.create, update: this.update });
 
@@ -12,6 +20,14 @@ var btnAttack;
 var btnDiscard;
 var btnDone;
 var btnStart;
+var castlewedge1;
+var castlewedge2;
+var castlewedge3;
+var castlewedge4;
+var castlewedge5;
+var castlewedge6;
+var castleFlag;
+var destroyedCastles = 0;
 
 var goodGuySprite;
 var goodGuyID = undefined;
@@ -23,7 +39,7 @@ var p2score;
 
 var style = {font: "20px Arial", fill: "#ffffff", wordWrap: false, align: "center"};
 
-var playerMove = 0; //Done btn to change this?
+var playerMove = 0; // Changed with btnDone
 
 var cardLoc = [ [ [0.01, 0.49], [0.1, 0.49], [0.19, 0.49],
             [0.01, 0.74], [0.1, 0.74], [0.19, 0.74] ],
@@ -64,6 +80,7 @@ var monsterLoc = {
 };
 
 // False - only one monster on that wedge[ring]
+// TODO: actually use this :)
 var doubleMonster = {
   1 : [false,false,false,false],
   2 : [false,false,false,false],
@@ -72,6 +89,16 @@ var doubleMonster = {
   5 : [false,false,false,false],
   6 : [false,false,false,false]
 };
+
+
+
+//////////////////////////////////////////////////////////
+//                                                      //
+//                                                      //
+//      Phaser.Game Functions!                          //
+//                                                      //
+//                                                      //
+//////////////////////////////////////////////////////////
 
 
 function preload() {
@@ -113,29 +140,120 @@ function preload() {
     game.load.image("BlueSwordsman", "styles/BlueSwordsman.png");
     game.load.image("GreenSwordsman", "styles/GreenSwordsman.png");
 
+    // castle
+    game.load.image("castle", "styles/castle.png");
+
 }
 
-function drawHands() {
-  //console.log(player[0].cardsInHand);
 
-  // if (playerCards.length != 0) {
-  //
-  //   playerCards.destroy();
-  // }
+
+function create() {
+    // ORDER OF CREATION AFFECTS Z-INDEX!!
+
+    // (x pos, y pos, key)
+    var bng = game.add.sprite(0,0, 'background');
+    bng.height = game.height;
+    bng.width = game.width;
+
+    // Castle
+    castlewedge1 = game.add.sprite(360,125, 'castle');
+    castlewedge1.scale.setTo(1.5,1.5);
+    castlewedge1.angle += 30;
+
+    castlewedge2 = game.add.sprite(410,155, 'castle');
+    castlewedge2.scale.setTo(1.5,1.5);
+    castlewedge2.angle += 90;
+
+    castlewedge3 = game.add.sprite(410,210, 'castle');
+    castlewedge3.scale.setTo(1.5,1.5);
+    castlewedge3.angle += 150;
+
+    castlewedge4 = game.add.sprite(360,245, 'castle');
+    castlewedge4.scale.setTo(1.5,1.5);
+    castlewedge4.angle += 210;
+
+    castlewedge5 = game.add.sprite(310,215, 'castle');
+    castlewedge5.scale.setTo(1.5,1.5);
+    castlewedge5.angle -= 90;
+
+    castlewedge6 = game.add.sprite(310,155, 'castle');
+    castlewedge6.scale.setTo(1.5,1.5);
+    castlewedge6.angle -= 30;
+
+    // (xpos, ypos, button sprite, function, callBack)
+    btnAttack = game.add.button(5, 130, 'btnAttack', onAttackClick, this);
+    btnAttack.name = "btnAttack";
+    btnAttack.scale.setTo(0.3, 0.3);
+
+    btnDiscard = game.add.button(70, 130, 'btnDiscard', onDiscardClick, this);
+    btnDiscard.name = "btnDiscard";
+    btnDiscard.scale.setTo(0.3, 0.3);
+
+    btnDone = game.add.button(135, 130, 'btnDone', onDoneClick, this);
+    btnDone.name = "btnDone";
+    btnDone.scale.setTo(0.3, 0.3);
+
+    btnStart = game.add.button(27, 70, 'btnStart', onStartClick, this);
+    btnStart.name = "btnStart";
+    btnStart.scale.setTo(1, 1);
+
+
+
+    // CHANGED: Add 1 Player / 2 Players buttons
+    style = {font: "20px Arial", fill: "#ffffff", wordWrap: false, align: "center"};
+
+    playerOneScoreText = game.add.text(30, 0, "Player 1 Score: " + "N/A", style);
+    playerTwoScoreText = game.add.text(530, 0, "Player 2 Score: " + "N/A", style);
+
+    update();
+}
+
+
+function update() {
+  if (player.length == 0) {
+    p1score = 0;
+    p2score = 0;
+  } else if (player.length == 1) {
+    p1score = player[0].score;
+    p2score = "N/A";
+  } else if (player.length == 2) {
+    p1score = player[0].score;
+    p2score = player[1].score;
+  }
+
+  playerOneScoreText.setText("Player 1 Score: " + p1score);
+  playerTwoScoreText.setText("Player 2 Score: " + p2score);
+
+  for (var i = 0; i < monsters.length; i++) {
+    textArray[i].x = Math.floor(monsters[i].x + monsters[i].width / 2);
+    textArray[i].y = Math.floor(monsters[i].y + 0 * monsters[i].height / 2);
+    textArray[i].setText("HP: " + monsters[i].name[3])
+  }
+}
+
+
+
+
+//////////////////////////////////////////////////////////
+//                                                      //
+//                                                      //
+//      Managing Sprites Functions!                     //
+//                                                      //
+//                                                      //
+//////////////////////////////////////////////////////////
+
+function drawHands() {
 
   for (var aPlayer in player) {
     playerCards = [];
     for (var i = 0; i < 6; i++) {
-      // var spriteX = (game.width * 0.5) - (s.width / 2); // 50%
-      // var spriteY = (game.height * 0.5) - (s.height / 2); // 50%
-      //monsters[cnt] = game.add.sprite(spriteX, spriteY, 'orc');
+
       playerCards[i] = game.add.sprite(cardLoc[aPlayer][i][0] * game.width, cardLoc[aPlayer][i][1] * game.height, player[aPlayer].cardsInHand[i]);
-      //playerCards[i].inputEnabled = true;
-      //playerCards[i].events.onInputDown.add(onPlayerActionClick, this);
       playerCards[i].name = player[aPlayer].cardsInHand[i];
       console.log(player[aPlayer].cardsInHand[i]);
       playerCards[i].scale.setTo(1.5,1.5);
     };
+
     console.log("aPlayer is: " + aPlayer);
     console.log(playerCards);
     playerCardsObject[aPlayer] = playerCards;
@@ -145,15 +263,25 @@ function drawHands() {
 function drawMonsters() {
   clearMonstersOnBoard();
 
+  // Winning Condition -- no more monsters
+  if (monstersOnBoard.length === 0) {
+    style = {font: "40px Arial", fill: "#52ff00", wordWrap: false, align: "center"};
+    var gameOverL = game.add.text(200, 100, "You defeated them! \n GAME OVER \n GAME OVER", style);
+    var gameOverR = game.add.text(200, 100, "You defeated them! \n GAME OVER \n GAME OVER", style);
+    game.physics.enable(gameOverL, Phaser.Physics.ARCADE);
+    game.physics.enable(gameOverR, Phaser.Physics.ARCADE);
+    gameOverR.body.velocity.x=100;
+    gameOverL.body.velocity.x=-100;
+  }
+
   for (var i = 0; i < monstersOnBoard.length; i++) {
-    cnt += 1;
-    //var spriteX = (game.width * 0.5) - (s.width / 2); // 50%
-    //var spriteY = (game.height * 0.5) - (s.height / 2); // 50%
-    //monsters[cnt] = game.add.sprite(spriteX, spriteY, 'orc');
+
     var monsterWedgeNum = monstersOnBoard[i][2].split(" ")[0]; // 1...2...3 ... etc
     var monsterRingID = monstersOnBoard[i][2].split(" ")[2]; // Archer... Knight... etc
     var monsterCoordinatesX;
     var monsterCoordinatesY;
+
+    castleFlag = false;
 
     if (monsterRingID == "Forest") {
       if (doubleMonster[monsterWedgeNum][0] == false) {
@@ -190,22 +318,69 @@ function drawMonsters() {
     } else {
       monsterCoordinatesX = monsterLoc[monsterWedgeNum][8][0];
       monsterCoordinatesY = monsterLoc[monsterWedgeNum][8][1];
+      castleFlag = true;
     }
 
-    monsters[i] = game.add.sprite(monsterCoordinatesX * game.width, monsterCoordinatesY * game.height, 'orc');
-    //monsters[cnt].inputEnabled = true;
-    //monsters[cnt].events.onInputOver.add(onOver, this);
-    monsters[i].name = [ i, monstersOnBoard[i][1], monstersOnBoard[i][2], monstersOnBoard[i][3]];
-    monsters[i].scale.setTo(0.5,0.5);
+    console.log("CastleFlag: " + castleFlag);
 
-    style = {font: "10px Arial", fill: "#ffffff", wordWrap: true, wordWrapWidth: monsters[i].width, align: "center"};
+    if (castleFlag === false) {
+      monsters[i] = game.add.sprite(monsterCoordinatesX * game.width, monsterCoordinatesY * game.height, 'orc');
+      monsters[i].name = [ i, monstersOnBoard[i][1], monstersOnBoard[i][2], monstersOnBoard[i][3]];
+      monsters[i].scale.setTo(0.5,0.5);
 
-    textArray[i] = game.add.text(0, 0, "HP: " + monstersOnBoard[i][3], style);
-    textArray[i].anchor.set(0.5);
+      style = {font: "10px Arial", fill: "#ffffff", wordWrap: true, wordWrapWidth: monsters[i].width, align: "center"};
+
+      textArray[i] = game.add.text(0, 0, "HP: " + monstersOnBoard[i][3], style);
+      textArray[i].anchor.set(0.5);
+    } else {
+
+      switch (parseInt(monsterWedgeNum)) {
+        case 1 :
+          castlewedge1.visible = false;
+          destroyedCastles += 1;
+          break;
+        case 2 :
+          castlewedge2.visible = false;
+          destroyedCastles += 1;
+          break;
+        case 3 :
+          castlewedge3.visible = false;
+          destroyedCastles += 1;
+          break;
+        case 4 :
+          castlewedge4.visible = false;
+          destroyedCastles += 1;
+          break;
+        case 5 :
+          castlewedge5.visible = false;
+          destroyedCastles += 1;
+          break;
+        case 6 :
+          castlewedge6.visible = false;
+          destroyedCastles += 1;
+          break;
+      }
+    }
+
+    // Losing Condition -- all castles are gone
+    if ( destroyedCastles === 6 ) {
+      style = {font: "40px Arial", fill: "#ff0000", wordWrap: false, align: "center"};
+      var gameOverL = game.add.text(200, 100, "You were overrun! \n GAME OVER \n GAME OVER", style);
+      var gameOverR = game.add.text(200, 100, "You were overrun! \n GAME OVER \n GAME OVER", style);
+      game.physics.enable(gameOverL, Phaser.Physics.ARCADE);
+      game.physics.enable(gameOverR, Phaser.Physics.ARCADE);
+      gameOverR.body.velocity.x=100;
+      gameOverL.body.velocity.x=-100;
+    }
   }
   update();
 }
 
+
+
+
+
+// Removes the card sprites, draws up to a hand of 6 cards, and redraws the cards
 function clearAndRebuildPlayerCards() {
   // Clear cards
   for (var i = 0; i < 6; i++) {
@@ -215,12 +390,7 @@ function clearAndRebuildPlayerCards() {
   playerCards = [];
 
   for (var i = 0; i < 6; i++) {
-    // var spriteX = (game.width * 0.5) - (s.width / 2); // 50%
-    // var spriteY = (game.height * 0.5) - (s.height / 2); // 50%
-    //monsters[cnt] = game.add.sprite(spriteX, spriteY, 'orc');
     playerCards[i] = game.add.sprite(cardLoc[playerMove][i][0] * game.width, cardLoc[playerMove][i][1] * game.height, player[playerMove].cardsInHand[i]);
-    //playerCards[i].inputEnabled = true;
-    //playerCards[i].events.onInputDown.add(onPlayerActionClick, this);
     playerCards[i].name = player[playerMove].cardsInHand[i];
     console.log(player[playerMove].cardsInHand[i]);
     playerCards[i].scale.setTo(1.5,1.5);
@@ -229,204 +399,32 @@ function clearAndRebuildPlayerCards() {
   playerCardsObject[playerMove] = playerCards;
 }
 
+
+// Remove the monsters (and text) from the board
 function clearMonstersOnBoard() {
-  // Clear cards
+  // Clear monsters
   for (var i = 0; i < monsters.length; i++) {
     monsters[i].destroy();
     textArray[i].destroy()
   }
 }
 
-function onPlayerActionClick(sprite, pointer) {
-  console.log(sprite.name);
-}
-
-function create() {
-    // ORDER OF CREATION AFFECTS Z-INDEX!!
-
-    // (x pos, y pos, key)
-    var bng = game.add.sprite(0,0, 'background');
-    bng.height = game.height;
-    bng.width = game.width;
-
-    // (xpos, ypos, button sprite, function, callBack)
-    btnAttack = game.add.button(5, 130, 'btnAttack', onAttackClick, this);
-    btnAttack.name = "btnAttack";
-    btnAttack.scale.setTo(0.3, 0.3);
-
-    btnDiscard = game.add.button(70, 130, 'btnDiscard', actionOnClick, this);
-    btnDiscard.name = "btnDiscard";
-    btnDiscard.scale.setTo(0.3, 0.3);
-
-    btnDone = game.add.button(135, 130, 'btnDone', onDoneClick, this);
-    btnDone.name = "btnDone";
-    btnDone.scale.setTo(0.3, 0.3);
-
-    btnStart = game.add.button(27, 70, 'btnStart', onStartClick, this);
-    btnStart.name = "btnStart";
-    btnStart.scale.setTo(1, 1);
 
 
 
-    //textArray[i].anchor.set(0.5);
 
-    // CHANGED: Add 1 Player / 2 Players buttons
-    style = {font: "20px Arial", fill: "#ffffff", wordWrap: false, align: "center"};
-    //
-    // if (player.length !== 0) {
-    //   p1score = 0;
-    //   p2score = 0;
-    // } else if (player.length == 1) {
-    //   p1score = player[0].score;
-    //   p2score = "N/A";
-    // } else if (player.length == 2) {
-    //   p1score = player[0].score;
-    //   p2score = player[1].score;
-    // }
-
-    playerOneScoreText = game.add.text(30, 0, "Player 1 Score: " + "N/A", style);
-    playerTwoScoreText = game.add.text(530, 0, "Player 2 Score: " + "N/A", style);
-
-
-    // var card = game.add.sprite(0, 275, 'RedArcher');
-    // card.name = ["goblin", 1, "1 Red Archer"];
-    // card.scale.setTo(1.5,1.5);
-    //
-    // card.inputEnabled = true; // DONT FORGET THIS!!
-    // card.events.onInputOver.add(onClick, this);
-    // s = card;
-
-
-    // var image = game.add.sprite(360, 25, 'orc');
-    // image.name = ["goblin", 1, "1 Red Archer"];
-    // image.scale.setTo(0.5,0.5);
-    //
-    // // image.inputEnabled = true; // DONT FORGET THIS!!
-    // // image.events.onInputOver.add(onOver, this);
-    //
-    //  s = image;
-    //  s.events.onInputDown.add(onClick, this);
-    // game.physics.enable(image, Phaser.Physics.ARCADE);
-    //
-    //
-    // // Create text
-    // var style = {font: "10px Arial", fill: "#ffffff", wordWrap: true, wordWrapWidth: s.width, align: "center"};
-    //
-    // text = game.add.text(0, 0, "HP: 3", style);
-    // text.anchor.set(0.5);
-
-
-    //image.body.velocity.x=150;
-    update();
-}
-
-function onOver(sprite, pointer) {
-  console.log(sprite.name);
-  console.log(sprite.worldPosition);
-}
-
-function actionOnClick(sprite, pointer) {
-  console.log(sprite.name + " has been clicked");
-  // sprite.tint = 0xdf4efc;
-}
-
-// function callingFromAnimation() {
-//   console.log("it works!");
-// }
-
-
-// function createScoreText() {
-//   // Score text
-//   style = {font: "20px Arial", fill: "#ffffff", wordWrap: false, align: "center"};
-//
-//   if (player.length !== 0) {
-//     p1score = 0;
-//     p2score = 0;
-//   } else if (player.length == 1) {
-//     p1score = player[0].score;
-//     p2score = "N/A";
-//   } else if (player.length == 2) {
-//     p1score = player[0].score;
-//     p2score = player[1].score;
-//   }
-//
-//   playerOneScoreText = game.add.text(30, 0, "Player 1 Score: " + p1score, style);
-//   playerTwoScoreText = game.add.text(530, 0, "Player 2 Score: " + p2score, style);
-// }
+//////////////////////////////////////////////////////////
+//                                                      //
+//                                                      //
+//      Button Click Functions!                         //
+//                                                      //
+//                                                      //
+//////////////////////////////////////////////////////////
 
 
 
-function onClick(sprite, pointer) {
-  // sprite.tint = 0xff7777;
-  // console.log(sprite.name[2]);
-  cnt += 1;
-  var spriteX = (game.width * 0.5) - (s.width / 2); // 50%
-  var spriteY = (game.height * 0.5) - (s.height / 2); // 50%
-  //monsters[cnt] = game.add.sprite(spriteX, spriteY, 'orc');
-  monsters[cnt] = game.add.sprite(loc[cnt][0] * game.width, loc[cnt][1] * game.height, 'orc');
-  monsters[cnt].inputEnabled = true;
-  monsters[cnt].events.onInputOver.add(onOver, this);
-  monsters[cnt].name = ["goblin", 1, "1 Red Archer"];
-  monsters[cnt].scale.setTo(0.5,0.5);
 
-  var style = {font: "10px Arial", fill: "#ffffff", wordWrap: true, wordWrapWidth: monsters[cnt].width, align: "center"};
-
-  textArray[cnt] = game.add.text(0, 0, "HP: 3", style);
-  textArray[cnt].anchor.set(0.5);
-}
-
-function update() {
-  // Keeps text with an object
-  // text.x = Math.floor(s.x + s.width / 2);
-  // text.y = Math.floor(s.y + 0 * s.height / 2);
-  if (player.length == 0) {
-    p1score = 0;
-    p2score = 0;
-  } else if (player.length == 1) {
-    p1score = player[0].score;
-    p2score = "N/A";
-  } else if (player.length == 2) {
-    p1score = player[0].score;
-    p2score = player[1].score;
-  }
-
-  playerOneScoreText.setText("Player 1 Score: " + p1score);
-  playerTwoScoreText.setText("Player 2 Score: " + p2score);
-
-  for (var i = 0; i < monsters.length; i++) {
-    textArray[i].x = Math.floor(monsters[i].x + monsters[i].width / 2);
-    textArray[i].y = Math.floor(monsters[i].y + 0 * monsters[i].height / 2);
-    textArray[i].setText("HP: " + monsters[i].name[3])
-  }
-
-
-// for movement
-//   if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
-// {
-//     s.x -= 1;
-//     console.log(s.worldPosition);
-// }
-// else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
-// {
-//     s.x += 1;
-//     console.log(s.worldPosition);
-// }
-//
-// if (game.input.keyboard.isDown(Phaser.Keyboard.UP))
-// {
-//     s.y -= 1;
-//     console.log(s.worldPosition);
-// }
-// else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN))
-// {
-//     s.y += 1;
-//     console.log(s.worldPosition);
-// }
-
-
-}
-
-
+// CLICK ATTACK
 function onAttackClick(sprite, pointer) {
   for (var i = 0; i < playerCardsObject[playerMove].length; i++) {
     console.log("attack clicked");
@@ -475,11 +473,9 @@ function onMonsterClick(sprite, pointer) {
   };
 }
 
-// CHANGED: goodGuyID and monsterID not going to undefined? -- variable name overlap!!!
+
 function initiateAttack(goodGuyIDVar,monsterIDVar) {
   console.log("initiateAttack");
-  //console.log((monsterIDVar[2].split(" ")[1] + monsterIDVar[2].split(" ")[2]));
-  //if (goodGuyIDVar !== "" && monsterIDVar.length !== 1) {
 
     if (goodGuyIDVar == (monsterIDVar[2].split(" ")[1] + monsterIDVar[2].split(" ")[2])) {
       console.log(goodGuyIDVar);
@@ -488,6 +484,7 @@ function initiateAttack(goodGuyIDVar,monsterIDVar) {
 
       player[playerMove];
       goodGuySprite.destroy();
+      discardPile.push(goodGuyIDVar);
 
       for (var i = 0; i < player[playerMove].cardsInHand.length; i++) {
         if (player[playerMove].cardsInHand[i] == goodGuyIDVar) {
@@ -533,18 +530,23 @@ function initiateAttack(goodGuyIDVar,monsterIDVar) {
     } else {
       console.log("Not a valid attack", goodGuyID, monsterID);
     }
-  //}
+
   goodGuyID = "";
   monsterID = [0];
 }
 
 
+
+// CLICK DONE
 function onDoneClick(sprite, pointer) {
   drawCardsUntilSix(); // draw up until you have 6 cards in hand
 
   clearAndRebuildPlayerCards(); // remove the card sprites and replaces with new hand
 
   moveMonstersInOne(); // move the monsters on the board a ring closer
+
+  addMonsterTokenToBoard(); // add 1 monster token to the board
+  addMonsterTokenToBoard(); // add another! hahaha
 
   drawMonsters(); // redraw the monsters
 
@@ -568,7 +570,7 @@ function onDoneClick(sprite, pointer) {
 }
 
 
-
+// CLICK START
 function onStartClick(sprite,pointer) {
   console.log("start the game!!!!");
   sprite.destroy();
@@ -587,7 +589,7 @@ function on1PlayerClick(sprite,point) {
   sprite.destroy();
   btn2Players.destroy();
   soloPlay = true;
-  createPlayers(1);
+  prepareGame(1);
 }
 
 function on2PlayersClick(sprite,point) {
@@ -596,4 +598,40 @@ function on2PlayersClick(sprite,point) {
   btn1Player.destroy();
   soloPlay = false;
   prepareGame(2);
+}
+
+
+// CLICK DISCARD
+function onDiscardClick(sprite, pointer) {
+  for (var i = 0; i < playerCardsObject[playerMove].length; i++) {
+    console.log("discard clicked");
+    playerCardsObject[playerMove][i].inputEnabled = true;
+    playerCardsObject[playerMove][i].events.onInputDown.add(discardMe, this);
+
+  }
+  update();
+}
+
+function discardMe(sprite, pointer) {
+  //clearIDTags();
+  var cardName = sprite.name;
+
+  sprite.destroy();
+  discardPile.push(cardName);
+
+  for (var i = 0; i < player[playerMove].cardsInHand.length; i++) {
+    if (player[playerMove].cardsInHand[i] == cardName) {
+      console.log("index:" + i);
+      var index = i;
+    }
+  }
+
+  player[playerMove].cardsInHand.splice(index,1);
+  discardPile.push(cardName);
+
+  drawCardsUntilSix();
+  clearAndRebuildPlayerCards();
+
+  btnDiscard.visible = false;
+
 }

@@ -1,3 +1,12 @@
+//////////////////////////////////////////////////////////
+//                                                      //
+//                                                      //
+//                      Variables!!                     //
+//                                                      //
+//                                                      //
+//////////////////////////////////////////////////////////
+
+
 // 3 Heros (1 of each color)
 // 3 Green / 3 Red / 3 Blue Archers
 // 1 Any Color Archer
@@ -69,19 +78,19 @@ monsterTokens = {
     name: "Goblin",
     type: "goblin",
     HP: 1,
-    quantity: 3 // 3 will be on the board
+    quantity: 3 // 3 will be on the board ... originally 3
   },
   orc : {
     name: "Orc",
     type: "orc",
     HP: 2,
-    quantity: 9 // 2 will be on the board
+    quantity: 9 // 2 will be on the board ... originally 9
   },
   troll : {
     name: "Troll",
     type: "troll",
     HP: 3,
-    quantity: 8 // 1 will be on the board
+    quantity: 8 // 1 will be on the board ... originally 8
   }
   // TODO: Add in Boss, Special monster tokens
   // boss : {
@@ -142,14 +151,13 @@ var shuffleFactor = 5; // The number of shuffle iterations
 
 
 
-//
-//
-//
-//
-// START OF Functions
-//
-//
-//
+//////////////////////////////////////////////////////////
+//                                                      //
+//                                                      //
+//                       Functions!                     //
+//                                                      //
+//                                                      //
+//////////////////////////////////////////////////////////
 
 
 // Player constructor
@@ -170,29 +178,14 @@ function playerMaker(name) {
   }
 }
 
-// Create Players
-function createPlayers(num) {
-  // Create 2 players
-  for (var i = 0; i < num; i++) {
-    player[i] = new playerMaker("player"+i);
-    console.log("player made");
-    console.log(player[i]);
-  };
-  console.log("player!!");
-  console.log(player[0]);
-  //prepareGame();
-}
 
 // Prepare Everything
 function prepareGame(num) {
 
   for (var i = 0; i < num; i++) {
     player[i] = new playerMaker("player"+i);
-    console.log("player made");
-    console.log(player[i]);
   };
-  console.log("player!!");
-  console.log(player[0]);
+
   // Run Functions
   initializeCards();
   console.log(drawPile);
@@ -220,13 +213,16 @@ function prepareGame(num) {
 
   // Show Monsters on the board
   drawMonsters();
-  // 
-  // show object information
-  // showPlayerInfo();
-  // showMonstersOnBoard();
 }
 
 
+//////////////////////////////////////////////////////////
+//                                                      //
+//                                                      //
+//      Creation of Cards and Monsters Functions!       //
+//                                                      //
+//                                                      //
+//////////////////////////////////////////////////////////
 
 // Start of Player Deck Initialization
 
@@ -341,6 +337,14 @@ function initializeMonsterTokens() {
 }
 
 
+//////////////////////////////////////////////////////////
+//                                                      //
+//                                                      //
+//      Player Hands (Cards) Functions!                 //
+//                                                      //
+//                                                      //
+//////////////////////////////////////////////////////////
+
 // Create Player hands
 //    TODO: add more than 2 players
 function createPlayerHands() {
@@ -362,10 +366,19 @@ function drawCardsUntilSix() {
 }
 
 
+//////////////////////////////////////////////////////////
+//                                                      //
+//                                                      //
+//         Initial Setup Functions!                     //
+//                                                      //
+//                                                      //
+//////////////////////////////////////////////////////////
 // Set up the initial board
 // Game always starts with 3 Goblin, 2 Orc, and 1 Troll'
 // Their starting location (number) is random, but only one
 //  monster per number (arc). They start in the Archer Ring.
+// monstersOnBoard format --- [4, "orc", "5 Blue Swordsman", 1]
+//                            [index, name, wedge color ring, HP]
 function setUpBoard() {
   var startingMonsters = ["goblin", "goblin", "goblin", "orc", "orc", "troll"];
   shuffle(startingMonsters);
@@ -376,11 +389,24 @@ function setUpBoard() {
 
 };
 
+// Add a moster token to the board
+function addMonsterTokenToBoard() {
+  if (monsterTokenBag.length > 0) {
+    var num = rollDie()
+    var monName = monsterTokenBag.pop().toLowerCase()
+    monstersOnBoard.push([0, monName, num+ " " + colorWedges[num - 1] +" Forest", monsterTokens[monName].HP]);
+  }
+}
 
 
-// GAME PLAY
-// GAME PLAY
-// GAME PLAY
+
+//////////////////////////////////////////////////////////
+//                                                      //
+//                                                      //
+//              GamePlay Functions!                     //
+//                                                      //
+//                                                      //
+//////////////////////////////////////////////////////////
 
 // player attacking a monster tile
 function playerAttack(playerNum, playerCard, monsterNum) {
@@ -455,6 +481,14 @@ function moveMonstersInOne() {
 
 
 
+//////////////////////////////////////////////////////////
+//                                                      //
+//                                                      //
+//      DOM Printing Functions!                         //
+//                                                      //
+//                                                      //
+//////////////////////////////////////////////////////////
+
 
 // DISPLAY / APPEND FUNCTIONS
 function showPlayerInfo() {
@@ -472,10 +506,7 @@ function showPlayerInfo() {
       playerInfo.text(player[aPlayer]["cardsInHand"]);
       playerName.append(playerInfo);
       $("#playerInfo").append(playerName);
-    // $("body").append(playerName);
   }
-
-
 }
 
 // show the monsters on the board
@@ -499,7 +530,6 @@ function showMonstersOnBoard() {
       playerName.append(monsterInfo);
       playerName.append("<br>");
       $("#monsters").append(playerName);
-    // $("body").append(playerName);
   }
 }
 
@@ -507,9 +537,13 @@ function showMonstersOnBoard() {
 
 
 
-//
-// Helper Functions
-//
+//////////////////////////////////////////////////////////
+//                                                      //
+//                                                      //
+//                Helper Functions!                     //
+//                                                      //
+//                                                      //
+//////////////////////////////////////////////////////////
 
 function callAnimation() {
   callingFromAnimation();

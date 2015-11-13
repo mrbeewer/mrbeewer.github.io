@@ -26,16 +26,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.4"
-     inkscape:cx="-38.20975"
-     inkscape:cy="658.45672"
+     inkscape:zoom="0.55874299"
+     inkscape:cx="72.343427"
+     inkscape:cy="383.00257"
      inkscape:document-units="px"
-     inkscape:current-layer="layer4"
+     inkscape:current-layer="layer6"
      showgrid="false"
      inkscape:window-width="1440"
-     inkscape:window-height="788"
-     inkscape:window-x="0"
-     inkscape:window-y="1"
+     inkscape:window-height="790"
+     inkscape:window-x="1182"
+     inkscape:window-y="1081"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata3419">
@@ -50,7 +50,7 @@
     </rdf:RDF>
   </metadata>
   <g
-     inkscape:label="Layer 1"
+     inkscape:label="Map"
      inkscape:groupmode="layer"
      id="layer1"
      style="display:inline">
@@ -65,6 +65,10 @@
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
   </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer6"
+     inkscape:label="moretext" />
   <g
      inkscape:groupmode="layer"
      id="layer3"
@@ -333,5 +337,82 @@
        r="99.48793"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 1231.3354,297.09546 -26.846,-35.79463 -34.0049,-28.63571 -32.2152,-19.68705 -37.5843,-14.31785 -35.7947,0"
+       id="path3573"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="text3575"
+       sodipodi:linespacing="125%"
+       transform="matrix(0.92710039,-0.3748131,0.3748131,0.92710039,-1038.4831,143.60719)"
+       inkscape:transform-center-x="-87.69685"
+       inkscape:transform-center-y="32.21517"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><textPath
+         xlink:href="#path3585"
+         id="textPath3589"><tspan
+   id="tspan3577"><tspan
+     id="tspan3579"
+     y="422.61935"
+     x="1072.6191">ARCHER</tspan></tspan></textPath></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 1079.2082,658.62125 46.533,7.15892 55.4817,21.47678 50.1125,39.3741 17.8973,30.42544"
+       id="path3585"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="text3603"
+       sodipodi:linespacing="125%"
+       transform="matrix(0.93096046,-0.36512001,0.36512001,0.93096046,-1031.2143,178.50639)"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><textPath
+         xlink:href="#path3585"
+         id="textPath3611"><tspan
+   id="tspan3605"><tspan
+     id="tspan3607"
+     y="512.35828"
+     x="1059.5215">KNIGHT</tspan><tspan
+     id="tspan3609"
+     dx="24.53125" /></tspan></textPath></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="text3616"
+       sodipodi:linespacing="125%"
+       transform="matrix(0.97389964,0.22697904,-0.22697904,0.97389964,-1137.873,-641.25991)"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><textPath
+         xlink:href="#path3513-3-7-4-9-4"
+         id="textPath3687"><tspan
+   id="tspan3620">SWORDSMAN</tspan></textPath></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3624"
+       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;line-height:125%;letter-spacing:0px;word-spacing:0px"><flowRegion
+         id="flowRegion3626"><rect
+           id="rect3628"
+           width="361.52579"
+           height="443.85345"
+           x="1052.3622"
+           y="411.63828" /></flowRegion><flowPara
+         id="flowPara3630"></flowPara></flowRoot>    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.54117453px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 1128.5892,533.21828 13.2842,-27.49085 22.1402,-30.92721 26.5682,-27.49087 26.568,-10.30906 24.3543,0 26.5683,0 26.5681,24.0545 22.1403,17.1818 11.07,13.74541 13.2842,34.36357"
+       id="path3635"
+       inkscape:connector-curvature="0" />
+    <circle
+       style="display:inline;fill:none;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path3513-3-7-4-9-4"
+       cx="-1650.1326"
+       cy="-825.06628"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       r="99.48793"
+       transform="scale(-1,-1)" />
   </g>
 </svg>
