@@ -1,0 +1,226 @@
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+h1 {
+  font-family: "Arvo";
+  font-weight: normal;
+  font-size: 55px;
+  text-align: center;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  font-family: "Arvo";
+  font-weight: normal;
+  font-size: 40px;
+  text-align: center;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+h3 {
+  font-family: "Oswald";
+  font-weight: normal;
+  font-size: 16px;
+  text-align: center;
+  margin: 5px 0;
+  padding: 0;
+  z-index: 1;
+  position: relative;
+}
+
+
+.center {
+  margin: 0 auto;
+}
+
+.content {
+  margin: 0 auto;
+  width: 960px;
+}
+
+.clear {
+  clear: both;
+}
+
+#header {
+  width: 100%;
+  background: url("../img/header-bg.png");
+  height: 80px;
+  position: fixed;
+  margin-top: 30px;
+}
+
+#nav {
+  width: 410px;
+  float: right;
+  margin-top: 20px;
+}
+
+#logo a {
+  color: #fff;
+  text-decoration: none;
+  float: left;
+  font-size: 16px;
+}
+
+#nav ul {
+  list-style: none;
+  display: block;
+  margin: 0 auto;
+  list-style: none;
+}
+
+#nav li {
+  margin-top: 9px;
+  float: left;
+  padding-left: 21px;
+}
+
+#nav li a {
+  color: #fff;
+  opacity: 0.6;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+#nav li a.active {
+  color: #fff;
+  opacity: 1;
+  border-bottom: 2px solid black;
+}
+
+#nav li a:hover {
+  color: #fff;
+  opacity: 1;
+}
+
+.quotes {
+  font-family: "Goudy Bookletter 1911", serif;
+  font-weight: normal;
+  font-size: 30px;
+  text-align: left;
+  margin: 50px auto;
+}
+
+.author_name_white {
+  font-family:  "Wellfleet";
+  margin: 70px;
+}
+
+.author_name_gray {
+  font-family: "Wellfleet";
+  margin: 70px;
+}
+
+.quotes_container {
+  width: 800px;
+  margin: 0 auto;
+}
+
+#christmas_tree {
+  background: url("../img/christmas-tree.png");
+  background-repeat: no-repeat;
+}
+
+#divider {
+  background: url("../img/divider.png");
+  background-repeat: no-repeat;
+  width: 300px;
+}
+
+#ribbon {
+  background: url("../img/ribbon.png");
+  background-repeat: no-repeat;
+  width: 251px;
+}
+
+#snowflakes1 {
+  background: url("../img/snowflakes.png");
+  background-repeat: no-repeat;
+  width: 300px;
+}
+
+#snowflakes2 {
+  background: url("../img/snowflakes.png");
+  background-repeat: no-repeat;
+  width: 300px;
+}
+
+
+
+#slide1, #slide2 {
+  width: 100%;
+}
+
+#slide1 {
+  background: url("../img/slide1.jpg") 50% 0 no-repeat fixed;
+  color: #fff;
+  height: 600px;
+  margin: 0;
+  padding: 200px 0 260px 0;
+  background-size: cover;
+}
+
+#slide1 {
+  background: url("../img/slide1.jpg") 50% 0 no-repeat fixed;
+  color: #fff;
+  height: 600px;
+  margin: 0;
+  padding: 200px 0 260px 0;
+  background-size: cover;
+}
+
+#slide2 {
+  background-color: #fff
+  color: #333333;
+  height: 300px;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 200px 0;
+}
+
+#slide3 {
+  background: url("../img/slide3.jpg") 50% 0 no-repeat fixed;
+  color: #fff;
+  height: 600px;
+  margin: 0;
+  padding: 170px 0 0 0;
+  background-size: cover;
+}
+
+#slide4 {
+  background-color: #fff
+  color: #333333;
+  height: 300px;
+  margin: 0;
+  padding: 200px 0;
+  background-size: cover;
+}
+
+#slide5 {
+  background: url("../img/slide5.jpg") 50% 0 no-repeat fixed;
+  color: #fff;
+  height: 200px;
+  margin: 0 auto;
+  padding: 250px 0;
+  background-size: cover;
+}
+
+
+#copyright {
+  color: #fff;
+  font-family: "Wellfleet"
+  font-size: 16px;
+}
+
+#copyright a {
+  text-decoration: none;
+  color: #fff;
+}
